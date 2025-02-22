@@ -9,11 +9,14 @@ declare namespace sce_register {
     element: sce_element.SceElement;
   }
 
-	class SceRegister {
+  class SceRegister {
+    /**
+     * customElement.define을 실행 시 사용할 element
+     */
     get element(): element[];
   }
 
-	interface Constructor {
-		(): SceRegister;
-	}
+  interface Constructor {
+    (): SceRegister;
+  }
 }

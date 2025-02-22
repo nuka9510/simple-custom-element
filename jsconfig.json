@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"typeRoots": ["src/@types", "node_modules"],
+		"typeRoots": ["src/@types"],
 		"checkJs": false,
 		"strictNullChecks": true,
 		"noPropertyAccessFromIndexSignature": true,

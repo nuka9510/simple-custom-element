@@ -4,7 +4,7 @@ export = sce_validation;
 export as namespace sce_validation;
 
 declare namespace sce_validation {
-	type InputElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+  type InputElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
   /** 결과 값 객체 */
   interface result {
