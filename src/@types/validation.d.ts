@@ -93,7 +93,7 @@ declare namespace sce_validation {
      *   <input type="date" name="edate2" data-sce-date="date2" data-sce-date-state="E" required="검색일2">
      * </form>
      * <script>
-     *   const validation = new Validation({regex: {password: /^[\S!?@#$%^&*():;+-=~{}<>\_\[\]\|\\\"\'\,\.\/\`]{6,10}$/}});
+     *   const validation = new SceValidation({regex: {password: /^[\S!?@#$%^&*():;+-=~{}<>\_\[\]\|\\\"\'\,\.\/\`]{6,10}$/}});
      *   
      *   validation.run(form);
      *   
@@ -200,7 +200,7 @@ declare namespace sce_validation {
      *   <input type="date" name="edate2" data-sce-date="date2" data-sce-date-state="E" required="검색일2">
      * </form>
      * <script>
-     *   const validation = new Validation({regex: {password: /^[\S!?@#$%^&*():;+-=~{}<>\_\[\]\|\\\"\'\,\.\/\`]{6,10}$/}});
+     *   const validation = new SceValidation({regex: {password: /^[\S!?@#$%^&*():;+-=~{}<>\_\[\]\|\\\"\'\,\.\/\`]{6,10}$/}});
      *   
      *   validation.run(form);
      *   
