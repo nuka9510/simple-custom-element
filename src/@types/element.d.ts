@@ -95,6 +95,11 @@ declare namespace sce_element {
     async init(): Promise<void>;
 
     /**
+     * `rendering`이후 실행 할 `callback`
+     */
+    afterRender(): void;
+
+    /**
      * 화면에 `render`할 html 문자열을 반환한다.
      */
     render(): string;
@@ -105,6 +110,16 @@ declare namespace sce_element {
      * @private
      */
     private _render(): void;
+
+    /**
+     * `SceElement`가 제거될 때 혹은 `state`가 변경되어 다시 `rendering`을 하기 이전에 실행할 `callback`
+     */
+    destroy(): void;
+
+    /**
+     * `SceElement`가 제거될 때 혹은 `state`가 변경되어 다시 `rendering`을 하기 이전에 실행할 `callback`
+     */
+    private _destroy(): void;
 
     /**
      * `arg`를 `state`로 갖는 `SceState`객체를 반환한다.
@@ -152,14 +167,14 @@ declare namespace sce_element {
      * 
      * @private
      */
-    private _eventInit(): void;
+    private _addEvent(): void;
 
     /**
      * `SceElement`에 정의한 `eventListener`들을 `remove`한다.
      * 
      * @private
      */
-    private _destroy(): void;
+    private _removeEvent(): void;
 
     /**
      * Event.preventDefault를 실행 한다.

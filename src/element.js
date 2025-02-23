@@ -96,6 +96,9 @@ export default class SceElement extends HTMLElement {
   /** @type {sce_element.SceElement['init']} */
   async init() {}
 
+  /** @type {sce_element.SceElement['afterRender']} */
+  afterRender() {}
+
   /** @type {sce_element.SceElement['render']} */
   render() {}
 
@@ -114,14 +117,27 @@ export default class SceElement extends HTMLElement {
 
     this.innerHTML = null;
     this.appendChild(node);
-    this.#eventInit();
+    this.#addEvent();
+    this.afterRender();
+  }
+
+  /** @type {sce_element.SceElement['destroy']} */
+  destroy() {}
+
+  /** @type {sce_element.SceElement['_destroy']} */
+  #destroy() {
+    this.destroy();
+    this.#removeEvent();
   }
 
   /** @type {sce_element.SceElement['setState']} */
   setState(state) {
     return new SceState(
       state,
-      () => { this.#render(); }
+      () => {
+        this.#destroy();
+        this.#render();
+      }
     );
   }
 
@@ -159,6 +175,7 @@ export default class SceElement extends HTMLElement {
   attributeChangedCallback(target, oldValue, newValue) {
     if (this.#isLoaded) {
       this.updateAttribute(target, oldValue, newValue);
+      this.#destroy();
       this.#render();
     }
   }
@@ -166,8 +183,8 @@ export default class SceElement extends HTMLElement {
   /** @type {sce_element.SceElement['updateAttribute']} */
   updateAttribute(target, oldValue, newValue) {}
 
-  /** @type {sce_element.SceElement['_eventInit']} */
-  #eventInit() {
+  /** @type {sce_element.SceElement['_addEvent']} */
+  #addEvent() {
     for (const action in this.#_action) {
       this.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((el, i, arr) => {
         this.#_action[action].forEach((a, _i, _arr) => {
@@ -181,8 +198,8 @@ export default class SceElement extends HTMLElement {
     }
   }
 
-  /** @type {sce_element.SceElement['_destroy']} */
-  #destroy() {
+  /** @type {sce_element.SceElement['_removeEvent']} */
+  #removeEvent() {
     for (const action in this.#_action) {
       this.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((el, i, arr) => {
         this.#_action[action].forEach((a, _i, _arr) => {
