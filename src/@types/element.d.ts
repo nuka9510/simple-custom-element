@@ -12,7 +12,7 @@ declare namespace sce_element {
   }
 
   interface action {
-    [action: string]: action_callback[];
+    [data_sce_action: string]: action_callback[];
   }
 
   type root = SceElement | Document;
