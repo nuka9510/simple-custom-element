@@ -28,35 +28,18 @@ export default class SceElement extends HTMLElement {
       { callback: this.#stopPropagation }
     ],
     'sub-select': [
-      {
-        event: 'change',
-        callback: this.#subSelect
-      }
+      { event: 'change', callback: this.#subSelect }
     ],
     'check-all': [
-      {
-        event: 'click',
-        callback: this.#checkAll,
-        option: { capture: true }
-      }
+      { event: 'click', callback: this.#checkAll, option: { capture: true } }
     ],
     'number-only': [
-      {
-        event: 'keydown',
-        callback: this.#numberOnlyKeydown
-      }, {
-        event: 'input',
-        callback: this.#numberOnlyInput
-      }, {
-        event: 'blur',
-        callback: this.#numberOnlyBlur
-      }
+      { event: 'keydown', callback: this.#numberOnlyKeydown },
+      { event: 'input', callback: this.#numberOnlyInput },
+      { event: 'blur', callback: this.#numberOnlyBlur }
     ],
     'check': [
-      {
-        event: 'click',
-        callback: this.#check
-      }
+      { event: 'click', callback: this.#check }
     ]
   }; };
 
