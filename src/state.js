@@ -9,8 +9,6 @@ export default class SceState {
 
   /** @type {sce_state.Constructor<{ [key: string]: any; }>} */
   constructor(state, callback) {
-    super();
-
     this.#state = SceUtil.copy(state);
     this.#callback = callback;
   }
