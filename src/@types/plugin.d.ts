@@ -6,8 +6,8 @@ export as namespace sce_plugin;
 declare namespace sce_plugin {
   interface _plugin {
     action: sce_element.action;
-    afterRender: () => void;
-    destroy: () => void;
+    afterRender: (el: sce_element.SceElement) => void;
+    destroy: (el: sce_element.SceElement) => void;
   }
 
   interface plugin {
