@@ -4,9 +4,6 @@ export default class SceValidation {
   /** @type {sce_validation.SceValidation['result']} */
   result;
 
-  /** @type {sce_validation.SceValidation['_util']} */
-  #util;
-
   /** @type {sce_validation.SceValidation['_el']} */
   #el;
 
@@ -17,11 +14,7 @@ export default class SceValidation {
   #regex;
 
   /** @type {sce_validation.Constructor} */
-  constructor(config) {
-    this.#util = new SceUtil();
-
-    this.init(config);
-  }
+  constructor(config) { this.init(config); }
 
   /** @type {sce_validation.SceValidation['init']} */
   init(config = null) {
@@ -56,7 +49,7 @@ export default class SceValidation {
       nickname: /^[ㄱ-ㅎㅏ-ㅣ가-힣\w\d]{2,10}$/
     };
 
-    this.#regex = (!this.#util.empty(regex) && this.#util.isObject(regex))
+    this.#regex = (!SceUtil.empty(regex) && SceUtil.isObject(regex))
       ? {
         ..._default,
         ...this.#regex,
@@ -72,8 +65,8 @@ export default class SceValidation {
   #setRadio(el) {
     const required = el.getAttribute('required');
 
-    if (!this.#util.empty(required)) {
-      if (this.#util.empty(this.#radio[required])) {
+    if (!SceUtil.empty(required)) {
+      if (SceUtil.empty(this.#radio[required])) {
         this.#radio[required] = [el];
       } else { this.#radio[required].push(el); }
     }
@@ -84,20 +77,20 @@ export default class SceValidation {
     const pattern = el.dataset.scePattern,
     date = el.dataset.sceDate;
 
-    if (!this.#util.empty(pattern)) {
-      if (this.#util.empty(this.#el.el)) { this.#el.el = []; }
+    if (!SceUtil.empty(pattern)) {
+      if (SceUtil.empty(this.#el.el)) { this.#el.el = []; }
 
       this.#el.el.push(el);
     }
 
-    if (!this.#util.empty(date)) {
+    if (!SceUtil.empty(date)) {
       const state = el.dataset.sceDateState;
 
       switch (state) {
         case 'S':
         case 'E':
-          if (this.#util.empty(this.#el.date)) { this.#el.date = {}; }
-          if (this.#util.empty(this.#el.date[date])) { this.#el.date[date] = {}; }
+          if (SceUtil.empty(this.#el.date)) { this.#el.date = {}; }
+          if (SceUtil.empty(this.#el.date[date])) { this.#el.date[date] = {}; }
 
           this.#el.date[date][state] = el;
           break;
@@ -109,10 +102,10 @@ export default class SceValidation {
   #required(el) {
     const required = el.getAttribute('required');
 
-    if (!this.#util.empty(required)) {
+    if (!SceUtil.empty(required)) {
       if (el.type == 'radio') {
         this.#setRadio(el);
-      } else if (this.#util.empty(el.value)) {
+      } else if (SceUtil.empty(el.value)) {
         this.result.flag = false;
         this.result.alertMsg = `'${required}'을/를 입력해 주세요.`;
         this.result.el = el;
@@ -159,8 +152,8 @@ export default class SceValidation {
         edate = el[i].E.value;
 
         if (
-          !this.#util.empty(sdate) &&
-          !this.#util.empty(edate)
+          !SceUtil.empty(sdate) &&
+          !SceUtil.empty(edate)
         ) {
           const inputName = el[i].S.dataset.sceInputName || el[i].E.dataset.sceInputName,
           required = el[i].S.getAttribute('required') || el[i].E.getAttribute('required');
@@ -186,7 +179,7 @@ export default class SceValidation {
 
         if (Object.keys(this.#regex).includes(pattern)) {
           if (
-            !this.#util.empty(val) &&
+            !SceUtil.empty(val) &&
             !this.#regex[pattern].test(val)
           ) {
             this.result.flag = false;
@@ -204,7 +197,7 @@ export default class SceValidation {
 
       if (Object.keys(this.#regex).includes(pattern)) {
         if (
-          !this.#util.empty(val) &&
+          !SceUtil.empty(val) &&
           !this.#regex[pattern].test(val)
         ) {
           this.result.flag = false;

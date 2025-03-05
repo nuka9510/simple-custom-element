@@ -15,10 +15,6 @@ option?: EventListenerOptions;
 SceElement | Document;
 ```
 ## member
-- `util: SceUtil` (readonly)
-```
-SceUtil 객체
-```
 - `isLoaded: boolean` (readonly)
 ```
 SceElement load 여부

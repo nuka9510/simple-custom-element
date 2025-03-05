@@ -56,8 +56,7 @@ export default class TestElement extends SceElement {
                   <td style="text-align: center; border: 1px solid #000000;"> ${this.util.numberFormat((cur.num / (cur.num ** 2)) * 100, 3)} </td>
                   <td style="text-align: center; border: 1px solid #000000;"> ${this.util.numberFormat(((cur.num * 2) / (cur.num ** 2)) * 100, 3)} </td>
                 </tr>
-              `,
-              ''
+              `, ''
             )
           }
         </tbody>

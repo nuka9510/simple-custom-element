@@ -1,7 +1,6 @@
 import SceUtil from "./util.js";
 
-/** @extends {sce_util.SceUtil} */
-export default class SceState extends SceUtil {
+export default class SceState {
   /** @type {sce_state.SceState<{ [key: string]: any; }>['_state']} */
   #state;
 
@@ -12,7 +11,7 @@ export default class SceState extends SceUtil {
   constructor(state, callback) {
     super();
 
-    this.#state = this.copy(state);
+    this.#state = SceUtil.copy(state);
     this.#callback = callback;
   }
 
@@ -41,8 +40,8 @@ export default class SceState extends SceUtil {
   /** @type {sce_state.SceState<{ [key: string]: any; }>['get']} */
   get(arg) {
     if (arg == undefined) {
-      return this.#state ?? null;
-    } else { return this.#state[arg] ?? null; }
+      return SceUtil.copy(this.#state ?? null);
+    } else { return SceUtil.copy(this.#state[arg] ?? null); }
   }
 
 }

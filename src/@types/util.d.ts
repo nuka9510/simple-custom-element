@@ -34,6 +34,8 @@ declare namespace sce_util {
      * empty([]);
      * empty({});
      * @param arg 값
+     * 
+     * @static
      */
     empty(arg?: any): boolean;
 
@@ -50,6 +52,8 @@ declare namespace sce_util {
      * isNumber('1', true);
      * @param arg 확인할 값
      * @param strict true일 경우 arg의 type도 확인 #default `false`
+     * 
+     * @static
      */
     isNumber(
       arg: any,
@@ -71,6 +75,8 @@ declare namespace sce_util {
      * isObject('');
      * isObject([]);
      * @param arg 값
+     * 
+     * @static
      */
     isObject(arg?: any): boolean;
 
@@ -94,6 +100,8 @@ declare namespace sce_util {
      * @param decimals - 소숫점 아래 자리 수 #default `0`
      * @param decimalSeparator - 소수점 구분자 #default `'.'`
      * @param thousandsSeparator - 천 단위 구분자 #default `','`
+     * 
+     * @static
      */
     numberFormat(
       num: number,
@@ -130,6 +138,8 @@ declare namespace sce_util {
      * %%: 리터럴 '%' 문자 - %
      * @param date 
      * @param format 
+     * 
+     * @static
      */
     strftime(
       date: Date,
@@ -148,6 +158,8 @@ declare namespace sce_util {
      * @param year 년
      * @param month 월
      * @param day 일
+     * 
+     * @static
      */
     checkdate(
       year: number,
@@ -173,6 +185,8 @@ declare namespace sce_util {
      * equaldate(date1, date2);
      * @param date1 기준 날짜
      * @param date2 비교할 날짜 #default `new Date()`
+     * 
+     * @static
      */
     equaldate(
       date1: Date,
@@ -192,6 +206,8 @@ declare namespace sce_util {
      * getWeek(date, false); 
      * @param date Date 객체
      * @param flag 해당 요일의 약어반환 대한 구분 값 false일 경우 약어 반환 #default `true`
+     * 
+     * @static
      */
     getWeek(
       date: Date,
@@ -209,6 +225,8 @@ declare namespace sce_util {
      * 
      * @param date 
      * @param interval 
+     * 
+     * @static
      */
     addDate(
       date: Date,
@@ -226,6 +244,8 @@ declare namespace sce_util {
      * 
      * @param date 
      * @param interval 
+     * 
+     * @static
      */
     subDate(
       date: Date,
@@ -245,6 +265,8 @@ declare namespace sce_util {
      * xor(false, false);
      * @param arg1 
      * @param arg2 
+     * 
+     * @static
      */
     xor(
       arg1: boolean,
@@ -259,6 +281,8 @@ declare namespace sce_util {
      * @param expire 
      * @param path #default `'/'`
      * @param domain #default `location.hostname`
+     * 
+     * @static
      */
     setCookie(
       key: string,
@@ -275,6 +299,8 @@ declare namespace sce_util {
      * // returns 'value'
      * getCookie('key');
      * @param key
+     * 
+     * @static
      */
     getCookie(key: string): string | undefined;
 
@@ -286,6 +312,8 @@ declare namespace sce_util {
      * @param key 
      * @param path #default `'/'`
      * @param domain #default `location.hostname`
+     * 
+     * @static
      */
     popCookie(
       key: string,
@@ -301,6 +329,8 @@ declare namespace sce_util {
      * 
      * const json = formDataToJson(data);
      * @param formData 
+     * 
+     * @static
      */
     formDataToJson(formData: FormData): string;
 
@@ -310,6 +340,8 @@ declare namespace sce_util {
      * @example
      * // returns 10
      * percentage(100, 10);
+     * 
+     * @static
      */
     percentage(
       num: number,
@@ -328,6 +360,8 @@ declare namespace sce_util {
      * // 1 : 2 = x : 4
      * ratio([1, 2], 4, false);
      * @param flag `default: true`
+     * 
+     * @static
      */
     ratio(
       ratio: [number, number],
@@ -339,6 +373,8 @@ declare namespace sce_util {
      * `x` 번째의 항이 `a`이고 공차가 `d`인 등차수열의 `n` 번째 항을 반환 한다.
      * 
      * @param x `x > 0`인 정수
+     * 
+     * @static
      */
     arithmeticSequence(
       a: number,
@@ -351,6 +387,8 @@ declare namespace sce_util {
      * `x` 번째의 항이 `a`이고 공비가 `r`인 등비수열의 `n` 번째 항을 반환 한다.
      * 
      * @param x `x > 0`인 정수
+     * 
+     * @static
      */
     geometricSequence(
       a: number,
@@ -363,6 +401,8 @@ declare namespace sce_util {
      * `value`를 반올림(round), 내림(floor), 올림(ceil) 한 값을 반환한다.
      * 
      * @param exp 소숫점 아래 자리 수 #default `0`
+     * 
+     * @static
      */
     decimalAdjust(
       type: 'round' | 'floor' | 'ceil',
@@ -374,6 +414,8 @@ declare namespace sce_util {
      * html entity를 인코딩 한다.
      * 
      * @param arg html entity를 인코딩 할 문자열
+     * 
+     * @static
      */
     encodeHtmlEntity(arg: string): string;
 
@@ -381,6 +423,8 @@ declare namespace sce_util {
      * html entity를 디코딩 한다.
      * 
      * @param arg html entity를 디코딩 할 문자열
+     * 
+     * @static
      */
     decodeHtmlEntity(arg: string): string;
 
@@ -388,11 +432,15 @@ declare namespace sce_util {
      * `object`의 `deepCopy`를 반환 한다.
      * 
      * @param arg `deepCopy`할 `object`
+     * 
+     * @static
      */
     copy<T extends object>(arg: T): T;
 
     /**
      * `s_num` <= x <= `e_num` 범위의 배열을 반환한다.
+     * 
+     * @static
      */
     numRange(
       s_num: number,
@@ -401,11 +449,15 @@ declare namespace sce_util {
 
     /**
      * fetch Response status 확인 후 json을 반환한다.  
+     * 
+     * @static
      */
     fetchJson<T extends object>(response: Response): Promise<T | never>;
 
     /**
      * `Error`객체의 `message`를 `fetchError`로 parsing하여 반환한다.  
+     * 
+     * @static
      */
     getFetchError(e: Error): fetchError;
   }

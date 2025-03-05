@@ -1,3 +1,4 @@
+import sce_plugin from "./plugin.js";
 import sce_state from "./state.js";
 import sce_util from "./util.js";
 
@@ -19,11 +20,11 @@ declare namespace sce_element {
 
   class SceElement extends HTMLElement {
     /**
-     * `SceUtil` 객체
+     * `SceElement`에 사용할 `plugin` 배열 객체
      * 
      * @private
      */
-    private _util: sce_util.SceUtil;
+    private _plugin: sce_plugin.plugin[];
 
     /**
      * `SceElement` `load` 여부
@@ -59,11 +60,6 @@ declare namespace sce_element {
      * @private
      */
     private get _action(): action;
-
-    /**
-     * `SceUtil` 객체
-     */
-    get util(): sce_util.SceUtil;
 
     /**
      * `EventListener`에 할당 할 `data-sce-action`을 정의한 `action`

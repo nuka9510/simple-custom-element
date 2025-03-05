@@ -1,5 +1,3 @@
-import sce_util from "./util.js";
-
 export = sce_validation;
 export as namespace sce_validation;
 
@@ -57,9 +55,6 @@ declare namespace sce_validation {
   class SceValidation {
     /** 결과 값 객체 */
     result: result;
-
-    /** @private */
-    private _util: sce_util.SceUtil;
 
     /**
      * validation check할 Element를 담는 객체
