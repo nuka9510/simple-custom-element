@@ -86,11 +86,6 @@ export default class SceElement extends HTMLElement {
       } catch (e) { console.error(e); }
     });
 
-    this.#plugin.forEach((p, i, arr) => {
-      p.plugin.afterRender = p.plugin.afterRender.bind(this);
-      p.plugin.destroy = p.plugin.destroy.bind(this);
-    });
-
     for (const action in this.#_action) {
       this.#_action[action].forEach((a, i, arr) => { a.callback = a.callback.bind(this); });
     }
@@ -123,7 +118,7 @@ export default class SceElement extends HTMLElement {
     this.innerHTML = null;
     this.appendChild(node);
     this.#addEvent();
-    this.#plugin.forEach((p, i, arr) => { p.plugin.afterRender(); });
+    this.#plugin.forEach((p, i, arr) => { p.plugin.afterRender(this); });
     this.afterRender();
   }
 
@@ -133,7 +128,7 @@ export default class SceElement extends HTMLElement {
   /** @type {sce_element.SceElement['_destroy']} */
   #destroy() {
     this.destroy();
-    this.#plugin.forEach((p, i, arr) => { p.plugin.destroy(); });
+    this.#plugin.forEach((p, i, arr) => { p.plugin.destroy(this); });
     this.#removeEvent();
   }
 
