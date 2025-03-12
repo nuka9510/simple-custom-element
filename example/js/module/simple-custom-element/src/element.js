@@ -61,8 +61,8 @@ export default class SceElement extends HTMLElement {
     super();
 
     this.#plugin = ScePlugin.plugin.filter(
-      (p, i, arr) => SceUtil.empty(p.target) ||
-                    p.target.includes(this)
+      (...arg) => SceUtil.empty(arg[0].target) ||
+                  arg[0].target.includes(this)
     );
     this.#isLoaded = false;
     this.#template = document.createElement('template');
@@ -70,24 +70,24 @@ export default class SceElement extends HTMLElement {
     this.#_action = {
       ...this.#action,
       ...this.#plugin.reduce(
-        (acc, cur, i, arr) => {
+        (...arg) => {
           return {
-            ...acc,
-            ...cur.plugin.action
+            ...arg[0],
+            ...arg[1].plugin.action
           };
         }, {}
       ),
       ...this.action
     };
 
-    this.querySelectorAll('script[data-sce-arg]').forEach((el, i, arr) => {
+    this.querySelectorAll('script[data-sce-arg]').forEach((...arg) => {
       try {
-        this[el.dataset.sceArg] = JSON.parse(el.innerText);
+        this[arg[0].dataset.sceArg] = JSON.parse(arg[0].innerText);
       } catch (e) { console.error(e); }
     });
 
     for (const action in this.#_action) {
-      this.#_action[action].forEach((a, i, arr) => { a.callback = a.callback.bind(this); });
+      this.#_action[action].forEach((...arg) => { arg[0].callback = arg[0].callback.bind(this); });
     }
 
     SceContext.popRoot(this);
@@ -104,21 +104,21 @@ export default class SceElement extends HTMLElement {
 
   /** @type {sce_element.SceElement['_render']} */
   #render() {
-    /** @type {Node} */
+    /** @type {DocumentFragment} */
     let node;
 
     this.#template.innerHTML = this.render();
 
     node = this.#template.content.cloneNode(true);
 
-    node.querySelectorAll('*').forEach((el, i, arr) => {
-      if (customElements.get(el.localName)) { SceContext.setRoot(el, this); }
+    node.querySelectorAll('*').forEach((...arg) => {
+      if (customElements.get(arg[0].localName)) { SceContext.setRoot(arg[0], this); }
     });
 
     this.innerHTML = null;
     this.appendChild(node);
     this.#addEvent();
-    this.#plugin.forEach((p, i, arr) => { p.plugin.afterRender(this); });
+    this.#plugin.forEach((...arg) => { arg[0].plugin.afterRender(this); });
     this.afterRender();
   }
 
@@ -128,7 +128,7 @@ export default class SceElement extends HTMLElement {
   /** @type {sce_element.SceElement['_destroy']} */
   #destroy() {
     this.destroy();
-    this.#plugin.forEach((p, i, arr) => { p.plugin.destroy(this); });
+    this.#plugin.forEach((...arg) => { arg[0].plugin.destroy(this); });
     this.#removeEvent();
   }
 
@@ -149,11 +149,11 @@ export default class SceElement extends HTMLElement {
   /** @type {sce_element.SceElement['connectedCallback']} */
   connectedCallback() {
     this.init()
-      .then(() => {
-        this.#render();
+        .then(() => {
+          this.#render();
 
-        this.#isLoaded = true;
-      });
+          this.#isLoaded = true;
+        });
   }
 
   /** @type {sce_element.SceElement['disconnectedCallback']} */
@@ -179,13 +179,13 @@ export default class SceElement extends HTMLElement {
   /** @type {sce_element.SceElement['_addEvent']} */
   #addEvent() {
     for (const action in this.#_action) {
-      this.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((el, i, arr) => {
-        this.#_action[action].forEach((a, _i, _arr) => {
-          if (SceUtil.empty(a.event)) {
-            el.dataset.sceEvent?.split(' ').forEach((e, __i, __arr) => {
-              if (!SceUtil.empty(e)) { el.addEventListener(e, a.callback, a.option); }
+      this.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((...arg) => {
+        this.#_action[action].forEach((..._arg) => {
+          if (SceUtil.empty(_arg[0].event)) {
+            arg[0].dataset.sceEvent?.split(' ').forEach((...__arg) => {
+              if (!SceUtil.empty(__arg[0])) { arg[0].addEventListener(__arg[0], _arg[0].callback, _arg[0].option); }
             });
-          } else { el.addEventListener(a.event, a.callback, a.option); }
+          } else { arg[0].addEventListener(_arg[0].event, _arg[0].callback, _arg[0].option); }
         });
       });
     }
@@ -194,13 +194,13 @@ export default class SceElement extends HTMLElement {
   /** @type {sce_element.SceElement['_removeEvent']} */
   #removeEvent() {
     for (const action in this.#_action) {
-      this.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((el, i, arr) => {
-        this.#_action[action].forEach((a, _i, _arr) => {
-          if (SceUtil.empty(a.event)) {
-            el.dataset.sceEvent?.split(' ').forEach((e, __i, __arr) => {
-              if (!SceUtil.empty(e)) { el.removeEventListener(e, a.callback, a.option); }
+      this.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((...arg) => {
+        this.#_action[action].forEach((..._arg) => {
+          if (SceUtil.empty(_arg[0].event)) {
+            arg[0].dataset.sceEvent?.split(' ').forEach((...__arg) => {
+              if (!SceUtil.empty(__arg[0])) { arg[0].removeEventListener(__arg[0], _arg[0].callback, _arg[0].option); }
             });
-          } else { el.removeEventListener(a.event, a.callback, a.option); }
+          } else { arg[0].removeEventListener(_arg[0].event, _arg[0].callback, _arg[0].option); }
         });
       });
     }
@@ -222,16 +222,16 @@ export default class SceElement extends HTMLElement {
     /** @type {NodeListOf<HTMLSelectElement>} */
     subSelect = this.querySelectorAll(`select[data-sce-name="${node.dataset.sceTarget}"]`);
 
-    subSelect.forEach(async (el, i, arr) => {
-      el.querySelectorAll('option').forEach((_el, _i, _arr) => {
-        if (!SceUtil.empty(_el.value)) { _el.style.setProperty('display', (node.value == _el.dataset.sceMain) ? 'block' : 'none'); }
+    subSelect.forEach(async (...arg) => {
+      arg[0].querySelectorAll('option').forEach((..._arg) => {
+        if (!SceUtil.empty(_arg[0].value)) { _arg[0].style.setProperty('display', (node.value == _arg[0].dataset.sceMain) ? 'block' : 'none'); }
       });
 
-      el.value = '';
+      arg[0].value = '';
 
       await this.afterSubSelect(ev);
 
-      el.dispatchEvent(new Event('change'));
+      arg[0].dispatchEvent(new Event('change'));
     });
   }
 
@@ -243,7 +243,7 @@ export default class SceElement extends HTMLElement {
     /** @type {HTMLInputElement} */
     const node = ev.currentTarget;
 
-    this.querySelectorAll(`input[type="checkbox"][data-sce-name='${node.dataset.sceTarget}']`).forEach((el, i, arr) => { el.checked = node.checked; });
+    this.querySelectorAll(`input[type="checkbox"][data-sce-name='${node.dataset.sceTarget}']`).forEach((...arg) => { arg[0].checked = node.checked; });
 
     await this.afterCheckAll(ev);
   }
@@ -325,7 +325,7 @@ export default class SceElement extends HTMLElement {
 
       node.value = value[0];
 
-      decimal = value.filter((el, i, arr) => i > 0).join('').substring(0, parseInt(node.dataset.sceDecimal ?? '0'));
+      decimal = value.filter((...arg) => arg[1] > 0).join('').substring(0, parseInt(node.dataset.sceDecimal ?? '0'));
       decimal = `${!SceUtil.empty(decimal) ? '.' : ''}${decimal}`;
     }
 

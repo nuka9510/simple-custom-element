@@ -14,12 +14,6 @@ declare namespace sce_util {
     millisecond?: number;
   }
 
-  interface fetchError {
-    status: number;
-    msg?: string;
-    [key: string]: any;
-  }
-
   class SceUtil {
     /**
      * 값이 비어있는지 확인한다.
@@ -448,21 +442,18 @@ declare namespace sce_util {
     ): number[];
 
     /**
-     * fetch Response status 확인 후 json을 반환한다.  
+     * `len`을 길이로 하는 `chunk`를 담은 배열을 반환한다.
      * 
+     * @param len 0 보다 큰 정수
      * @static
      */
-    fetchJson<T extends object>(response: Response): Promise<T | never>;
-
-    /**
-     * `Error`객체의 `message`를 `fetchError`로 parsing하여 반환한다.  
-     * 
-     * @static
-     */
-    getFetchError(e: Error): fetchError;
+    arrayChunk<T>(
+      arr: T[],
+      len: number
+    ): T[][];
   }
 
   interface Constructor {
-    (root?: sce_element.SceElement): SceUtil;
+    (): SceUtil;
   }
 }

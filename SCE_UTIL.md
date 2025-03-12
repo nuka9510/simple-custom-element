@@ -363,3 +363,10 @@ s_num <= x <= e_num 범위의 배열을 반환한다.
 # s_num
 # e_num
 ```
+- `static arrayChunk<T>(arr: T[], len: number): T[][]`
+```
+len을 길이로 하는 chunk를 담은 배열을 반환한다.
+
+@param
+# len 0 보다 큰 정수
+```

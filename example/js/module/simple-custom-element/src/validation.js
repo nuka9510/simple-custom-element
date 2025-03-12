@@ -117,7 +117,7 @@ export default class SceValidation {
   #requiredRadio() {
     for (const i in this.#radio) {
       const el = this.#radio[i][0],
-      flag = this.#radio[i].some((_el, _i, _arr) => _el.checked);
+      flag = this.#radio[i].some((...arg) => arg[0].checked);
 
       if (!flag) {
         this.result.flag = false;

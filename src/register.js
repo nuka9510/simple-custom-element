@@ -4,6 +4,6 @@ export default class SceRegister {
 
   /** @type {sce_register.Constructor} */
   constructor() {
-    this.element.forEach((el, i, arr) => { customElements.define(el.tagName, el.element); });
+    this.element.forEach((...arg) => { customElements.define(arg[0].tagName, arg[0].element); });
   }
 }

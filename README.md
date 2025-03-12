@@ -3,6 +3,7 @@
 ## Classes
 - `SceUtil`
 - `SceElement`
+- `ScePlugin`
 - `SceRegister`
 - `SceValidation`
 
@@ -16,6 +17,7 @@ example
 │  │        ├── context.js
 │  │        ├── element.js
 │  │        ├── index.js
+│  │        ├── plugin.js
 │  │        ├── proxy.js
 │  │        ├── register.js
 │  │        └── validation.js

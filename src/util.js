@@ -6,7 +6,7 @@ export default class SceUtil {
     if (!result) {
       if (arg.constructor == Object) {
         result = Object.keys(arg).length == 0 &&
-            Object.keys(Object.getPrototypeOf(arg)).length == 0;
+                  Object.keys(Object.getPrototypeOf(arg)).length == 0;
       } else if (arg.constructor == NodeList) {
         result = arg.length == 0;
       } else if (Array.isArray(arg)) { result = arg.length == 0; }
@@ -18,8 +18,8 @@ export default class SceUtil {
   /** @type {sce_util.SceUtil['isNumber']} */
   static isNumber(arg, strict = false) {
     let result = !Number.isNaN(Number(arg)) &&
-          ['number', 'string'].includes(typeof arg) &&
-          !/^\s*$/.test(arg);
+                ['number', 'string'].includes(typeof arg) &&
+                !/^\s*$/.test(arg);
 
     if (
       result &&
@@ -38,9 +38,9 @@ export default class SceUtil {
 
     result[0] = result[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSeparator);
 
-    if (!this.empty(result[1])) { result[1] = result[1].substring(0, decimals); }
+    if (!SceUtil.empty(result[1])) { result[1] = result[1].substring(0, decimals); }
 
-    return (!this.empty(result[1])) ? result[0].concat(decimalSeparator, result[1]) : result[0];
+    return (!SceUtil.empty(result[1])) ? result[0].concat(decimalSeparator, result[1]) : result[0];
   }
 
   /** @type {sce_util.SceUtil['strftime']} */
@@ -49,7 +49,7 @@ export default class SceUtil {
     week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     format = format.replace(/(%{1})/g, '\\$1');
-    format = format.replace(/(\\%) {2}/g, '%');
+    format = format.replace(/(\\%){2}/g, '%');
     format = format.replace(/\\%Y/g, String(date.getFullYear()));
     format = format.replace(/\\%y/g, String(date.getFullYear()).replace(/^\d+(\d{2})$/, '$1'));
     format = format.replace(/\\%B/g, month[date.getMonth()]);
@@ -72,12 +72,12 @@ export default class SceUtil {
     const date = new Date(year, (month - 1), day);
 
     return date.getFullYear() == year &&
-        (date.getMonth() + 1) == month &&
-        date.getDate() == day;
+          (date.getMonth() + 1) == month &&
+          date.getDate() == day;
   }
 
   /** @type {sce_util.SceUtil['equaldate']} */
-  static equaldate(date1, date2 = new Date()) { return this.strftime(date1, '%Y-%m-%d') == this.strftime(date2, '%Y-%m-%d'); }
+  static equaldate(date1, date2 = new Date()) { return SceUtil.strftime(date1, '%Y-%m-%d') == SceUtil.strftime(date2, '%Y-%m-%d'); }
 
   /** @type {sce_util.SceUtil['getWeek']} */
   static getWeek(date, flag = true) {
@@ -90,38 +90,38 @@ export default class SceUtil {
   /** @type {sce_util.SceUtil['addDate']} */
   static addDate(date, interval) {
     return new Date(
-      date.getFullYear() + (this.isNumber(interval.year, true) ? interval.year : 0),
-      date.getMonth() + (this.isNumber(interval.month, true) ? interval.month : 0),
-      date.getDate() + (this.isNumber(interval.day, true) ? interval.day : 0),
-      date.getHours() + (this.isNumber(interval.hour, true) ? interval.hour : 0),
-      date.getMinutes() + (this.isNumber(interval.minute, true) ? interval.minute : 0),
-      date.getSeconds() + (this.isNumber(interval.second, true) ? interval.second : 0),
-      date.getMilliseconds() + (this.isNumber(interval.millisecond, true) ? interval.millisecond : 0)
+      date.getFullYear() + (SceUtil.isNumber(interval.year, true) ? interval.year : 0),
+      date.getMonth() + (SceUtil.isNumber(interval.month, true) ? interval.month : 0),
+      date.getDate() + (SceUtil.isNumber(interval.day, true) ? interval.day : 0),
+      date.getHours() + (SceUtil.isNumber(interval.hour, true) ? interval.hour : 0),
+      date.getMinutes() + (SceUtil.isNumber(interval.minute, true) ? interval.minute : 0),
+      date.getSeconds() + (SceUtil.isNumber(interval.second, true) ? interval.second : 0),
+      date.getMilliseconds() + (SceUtil.isNumber(interval.millisecond, true) ? interval.millisecond : 0)
     );
   }
 
   /** @type {sce_util.SceUtil['subDate']} */
   static subDate(date, interval) {
     return new Date(
-      date.getFullYear() - (this.isNumber(interval.year, true) ? interval.year : 0),
-      date.getMonth() - (this.isNumber(interval.month, true) ? interval.month : 0),
-      date.getDate() - (this.isNumber(interval.day, true) ? interval.day : 0),
-      date.getHours() - (this.isNumber(interval.hour, true) ? interval.hour : 0),
-      date.getMinutes() - (this.isNumber(interval.minute, true) ? interval.minute : 0),
-      date.getSeconds() - (this.isNumber(interval.second, true) ? interval.second : 0),
-      date.getMilliseconds() - (this.isNumber(interval.millisecond, true) ? interval.millisecond : 0)
+      date.getFullYear() - (SceUtil.isNumber(interval.year, true) ? interval.year : 0),
+      date.getMonth() - (SceUtil.isNumber(interval.month, true) ? interval.month : 0),
+      date.getDate() - (SceUtil.isNumber(interval.day, true) ? interval.day : 0),
+      date.getHours() - (SceUtil.isNumber(interval.hour, true) ? interval.hour : 0),
+      date.getMinutes() - (SceUtil.isNumber(interval.minute, true) ? interval.minute : 0),
+      date.getSeconds() - (SceUtil.isNumber(interval.second, true) ? interval.second : 0),
+      date.getMilliseconds() - (SceUtil.isNumber(interval.millisecond, true) ? interval.millisecond : 0)
     );
   }
 
   /** @type {sce_util.SceUtil['xor']} */
   static xor(arg1, arg2) {
     return !(arg1 && arg2) &&
-        (arg1 || arg2);
+          (arg1 || arg2);
   }
 
   /** @type {sce_util.SceUtil['setCookie']} */
   static setCookie(key, value, expire, path = '/', domain = location.hostname) {
-    if (this.empty(expire)) {
+    if (SceUtil.empty(expire)) {
       expire = new Date();
       
       expire.setDate(expire.getDate() + 1);
@@ -132,10 +132,11 @@ export default class SceUtil {
 
   /** @type {sce_util.SceUtil['getCookie']} */
   static getCookie(key) {
-    let result = document.cookie.split('; ')
-                  .find((val, i ,arr) => val.startsWith(key));
+    let result = document.cookie
+                          .split('; ')
+                          .find((...arg) => arg[0].startsWith(key));
         
-    if (!this.empty(result)) {
+    if (!SceUtil.empty(result)) {
       result = result.split('=')[1];
     } else { result = null; }
 
@@ -156,11 +157,11 @@ export default class SceUtil {
     return JSON.stringify(
       Object.fromEntries(
         [...new Set(formData.keys())].map(
-          (key) => [
-            key,
-            (formData.getAll(key).length > 1)
-              ? formData.getAll(key)
-              : formData.get(key)
+          (...arg) => [
+            arg[0],
+            (formData.getAll(arg[0]).length > 1)
+              ? formData.getAll(arg[0])
+              : formData.get(arg[0])
           ]
         )
       )
@@ -214,16 +215,16 @@ export default class SceUtil {
 
   /** @type {sce_util.SceUtil['copy']} */
   static copy(arg) {
-    if (this.isObject(arg)) {
+    if (SceUtil.isObject(arg)) {
       const result = {};
 
-      for (const i in arg) { result[i] = this.copy(arg[i]); }
+      for (const i in arg) { result[i] = SceUtil.copy(arg[i]); }
 
       return result;
     } else if (Array.isArray(arg)) {
       const result = [];
 
-      for (const i of arg) { result.push(this.copy(i)); }
+      for (const i of arg) { result.push(SceUtil.copy(i)); }
 
       return result;
     } else { return arg; }
@@ -237,27 +238,23 @@ export default class SceUtil {
 
     range = Math.abs(range) + 1;
 
-    return [...new Array(range)].map((el, i, arr) => (i * ((flag) ? 1 : -1)) + sNum);
+    return [...new Array(range)].map((...arg) => (arg[1] * ((flag) ? 1 : -1)) + sNum);
   }
 
-  /** @type {sce_util.SceUtil['fetchJson']} */
-  static fetchJson(response) {
-    if (response.ok) {
-      return response.json();
-    } else {
-      return response.text().then((text) => {
-        let error = { status: response.status };
+  /** @type {sce_util.SceUtil['arrayChunk']} */
+  static arrayChunk(arr, size) {
+    if (!SceUtil.isNumber(size, true)) { throw new TypeError("size는 숫자 타입 이어야 합니다."); }
+    if (
+      size <= 0 &&
+      Number.isInteger(size)
+    ) { throw new RangeError("size는 0보다 큰 정수여야 합니다."); }
 
-        try {
-          error = { ...error, ...JSON.parse(text) };
-        } catch (e) { error = { ...error, msg: text }; }
+    const _arr = [];
 
-        throw new Error(JSON.stringify(error));
-      });
-    }
+    SceUtil.numRange(0, SceUtil.decimalAdjust('ceil', arr.length / size) - 1)
+            .forEach((...arg) => { _arr.push(arr.slice(arg[0] * size, (arg[0] + 1) * size)); });
+
+    return _arr;
   }
-
-  /** @type {sce_util.SceUtil['getFetchError']} */
-  static getFetchError(e) { return JSON.parse(e.message); };
 
 }
