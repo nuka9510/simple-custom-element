@@ -1,13 +1,15 @@
-import SceElement from "./element.js";
-import ScePlugin from "./plugin.js";
-import SceRegister from "./register.js";
-import SceUtil from "./util.js";
-import SceValidation from "./validation.js";
+import Component from "./component.js";
+import Plugin from "./plugin.js";
+import Register from "./register.js";
+import State from "./state.js";
+import Util from "./util.js";
+import Validation from "./validation.js";
 
 export {
-  SceElement,
-  ScePlugin,
-  SceRegister,
-  SceUtil,
-  SceValidation
+  Component as SceComponent,
+  Plugin as ScePlugin,
+  Register as SceRegister,
+  State as SceState,
+  Util as SceUtil,
+  Validation as SceValidation
 };

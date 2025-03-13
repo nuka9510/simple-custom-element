@@ -1,14 +1,14 @@
-export default class SceContext {
-  /** @type {sce_context.SceContext['_root']} */
+export default class Context {
+  /** @type {sce_context.Context['_root']} */
   static #root;
 
-  /** @type {sce_context.SceContext['setRoot']} */
-  static setRoot(el, root) { SceContext.#root = [...(SceContext.#root ?? []), [el, root]]; }
+  /** @type {sce_context.Context['setRoot']} */
+  static setRoot(el, root) { Context.#root = [...(Context.#root ?? []), [el, root]]; }
 
-  /** @type {sce_context.SceContext['getRoot']} */
-  static getRoot(el) { return SceContext.#root?.find((...arg) => arg[0][0] == el)[1] ?? null; }
+  /** @type {sce_context.Context['getRoot']} */
+  static getRoot(el) { return Context.#root?.find((...arg) => arg[0][0] == el)[1] ?? null; }
 
-  /** @type {sce_context.SceContext['popRoot']} */
-  static popRoot(el) { SceContext.#root = SceContext.#root?.filter((...arg) => arg[0][0] != el); }
+  /** @type {sce_context.Context['popRoot']} */
+  static popRoot(el) { Context.#root = Context.#root?.filter((...arg) => arg[0][0] != el); }
 
 }

@@ -1,10 +1,10 @@
-import SceUtil from "./util.js";
+import { SceUtil } from "./index.js";
 
-export default class SceState {
-  /** @type {sce_state.SceState<{ [key: string]: any; }>['_state']} */
+export default class State {
+  /** @type {sce_state.State<{ [key: string]: any; }>['_state']} */
   #state;
 
-  /** @type {sce_state.SceState<{ [key: string]: any; }>['_callback']} */
+  /** @type {sce_state.State<{ [key: string]: any; }>['_callback']} */
   #callback;
 
   /** @type {sce_state.Constructor<{ [key: string]: any; }>} */
@@ -13,7 +13,7 @@ export default class SceState {
     this.#callback = callback;
   }
 
-  /** @type {sce_state.SceState<{ [key: string]: any; }>['set']} */
+  /** @type {sce_state.State<{ [key: string]: any; }>['set']} */
   set(...arg) {
     if ((arg.length > 0) && (arg.length <= 2)) {
       switch(arg.length) {
@@ -35,7 +35,7 @@ export default class SceState {
     } else { throw new Error('param 개수 범위 초과') }
   }
 
-  /** @type {sce_state.SceState<{ [key: string]: any; }>['get']} */
+  /** @type {sce_state.State<{ [key: string]: any; }>['get']} */
   get(arg) {
     if (arg == undefined) {
       return SceUtil.copy(this.#state ?? null);

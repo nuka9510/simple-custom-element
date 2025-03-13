@@ -2,10 +2,10 @@ import sce_plugin from "./plugin.js";
 import sce_state from "./state.js";
 import sce_util from "./util.js";
 
-export = sce_element;
-export as namespace sce_element;
+export = sce_component;
+export as namespace sce_component;
 
-declare namespace sce_element {
+declare namespace sce_component {
   interface action_callback {
     event?: string;
     callback: (ev: Event) => void | Promise<void>;
@@ -16,18 +16,18 @@ declare namespace sce_element {
     [data_sce_action: string]: action_callback[];
   }
 
-  type root = SceElement | Document;
+  type root = Component | Document;
 
-  class SceElement extends HTMLElement {
+  class Component extends HTMLElement {
     /**
-     * `SceElement`에 사용할 `plugin` 배열 객체
+     * `SceComponent`에 사용할 `plugin` 배열 객체
      * 
      * @private
      */
     private _plugin: sce_plugin.plugin[];
 
     /**
-     * `SceElement` `load` 여부
+     * `SceComponent` `load` 여부
      * 
      * @private
      */
@@ -41,7 +41,7 @@ declare namespace sce_element {
     private _template: HTMLTemplateElement;
 
     /**
-     * 현재 `SceElement`를 호출 한 `Document` 또는 `SceElement` 객체
+     * 현재 `SceComponent`를 호출 한 `Document` 또는 `SceComponent` 객체
      * 
      * @private
      */
@@ -67,24 +67,24 @@ declare namespace sce_element {
     get action(): action;
 
     /**
-     * `SceElement` `load` 여부
+     * `SceComponent` `load` 여부
      */
     get isLoaded(): boolean;
 
     /**
-     * 현재 `SceElement`를 호출 한 `Document` 또는 `SceElement` 객체
+     * 현재 `SceComponent`를 호출 한 `Document` 또는 `SceComponent` 객체
      */
     get root(): root;
 
     /**
-     * `SceElement`의 `attributeChangedCallback`를 실행하기 위해 추척할 `attributes`
+     * `SceComponent`의 `attributeChangedCallback`를 실행하기 위해 추척할 `attributes`
      * 
      * @static
      */
     get observedAttributes(): string[];
 
     /**
-     * `SceElement`가 할당 될 때 실행한다.
+     * `SceComponent`가 할당 될 때 실행한다.
      * 
      * @async
      */
@@ -108,19 +108,19 @@ declare namespace sce_element {
     private _render(): void;
 
     /**
-     * `SceElement`가 제거될 때 혹은 `state`가 변경되어 다시 `rendering`을 하기 이전에 실행할 `callback`
+     * `SceComponent`가 제거될 때 혹은 `state`가 변경되어 다시 `rendering`을 하기 이전에 실행할 `callback`
      */
     destroy(): void;
 
     /**
-     * `SceElement`가 제거될 때 혹은 `state`가 변경되어 다시 `rendering`을 하기 이전에 실행할 `callback`
+     * `SceComponent`가 제거될 때 혹은 `state`가 변경되어 다시 `rendering`을 하기 이전에 실행할 `callback`
      */
     private _destroy(): void;
 
     /**
      * `arg`를 `state`로 갖는 `SceState`객체를 반환한다.
      */
-    setState<T extends { [key: string]: any; }>(state: T): sce_state.SceState<T>;
+    setState<T extends { [key: string]: any; }>(state: T): sce_state.State<T>;
 
     /**
      * 현재 페이지의 `URLSearchParams`객체를 반환한다.
@@ -128,22 +128,22 @@ declare namespace sce_element {
     getParams(): URLSearchParams;
 
     /**
-     * `SceElement`가 `connected`될 때 실행할 `callback`
+     * `SceComponent`가 `connected`될 때 실행할 `callback`
      */
     connectedCallback(): void;
 
     /**
-     * `SceElement`가 `disconnected`될 때 실행할 `callback`
+     * `SceComponent`가 `disconnected`될 때 실행할 `callback`
      */
     disconnectedCallback(): void;
 
     /**
-     * `SceElement`가 새로운 `document`로 이동되었을 때 실행할 `callback`
+     * `SceComponent`가 새로운 `document`로 이동되었을 때 실행할 `callback`
      */
     adoptedCallback(): void;
 
     /**
-     * `SceElement`의 `observedAttributes`가 변경 될 때 실행할 `callback`
+     * `SceComponent`의 `observedAttributes`가 변경 될 때 실행할 `callback`
      */
     attributeChangedCallback(
       target: string,
@@ -151,7 +151,7 @@ declare namespace sce_element {
       newValue: string
     ): void;
 
-    /** `SceElement`의 `attributeChangedCallback`가 실행 될 때 실행 할 `callback` */
+    /** `SceComponent`의 `attributeChangedCallback`가 실행 될 때 실행 할 `callback` */
     updateAttribute(
       target: string,
       oldValue: string,
@@ -159,14 +159,14 @@ declare namespace sce_element {
     ): void;
 
     /**
-     * `SceElement`에 정의한 `eventListener`들을 `add`한다.
+     * `SceComponent`에 정의한 `eventListener`들을 `add`한다.
      * 
      * @private
      */
     private _addEvent(): void;
 
     /**
-     * `SceElement`에 정의한 `eventListener`들을 `remove`한다.
+     * `SceComponent`에 정의한 `eventListener`들을 `remove`한다.
      * 
      * @private
      */
@@ -296,6 +296,6 @@ declare namespace sce_element {
   }
 
   interface Constructor {
-    (): SceElement;
+    (): Component;
   }
 }

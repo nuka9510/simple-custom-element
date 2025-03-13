@@ -2,7 +2,7 @@ export = sce_state;
 export as namespace sce_state;
 
 declare namespace sce_state {
-  class SceState<V extends { [key: string]: any; }> {
+  class State<V extends { [key: string]: any; }> {
     /** @private */
     private _state: V;
 
@@ -20,6 +20,6 @@ declare namespace sce_state {
     (
       state: V,
       async callback: () => void
-    ): SceState<V>;
+    ): State<V>;
   }
 }

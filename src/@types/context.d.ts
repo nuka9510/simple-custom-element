@@ -1,27 +1,39 @@
-import sce_element from "./element.js";
+import sce_component from "./component.js";
 
 export = sce_context;
 export as namespace sce_context;
 
 declare namespace sce_context {
-  class SceContext {
+  class Context {
     /** @static */
-    _root: [sce_element.SceElement, sce_element.SceElement][];
+    _root: [sce_component.Component, sce_component.Component][];
 
-    /** @static */
+    /**
+     * `SceComponent`의 `root`로 사용할 `SceComponent`를 `root`설정을 위한 배열에 담는다.
+     * 
+     * @static
+     */
     setRoot(
-      el: sce_element.SceElement,
-      root: sce_element.SceElement
+      el: sce_component.Component,
+      root: sce_component.Component
     ): void;
 
-    /** @static */
-    getRoot(el: sce_element.SceElement): sce_element.SceElement?;
+    /**
+     * 전달 된 `SceComponent`의 `root`에 해당하는 `SceComponent`를 반환한다.
+     * 
+     * @static
+     */
+    getRoot(el: sce_component.Component): sce_component.Component?;
 
-    /** @static */
-    popRoot(el: sce_element.SceElement): void;
+    /**
+     * 전달 된 `SceComponent`의 `root`에 해당하는 `SceComponent`를 `root`설정을 위한 배열에서 제거한다.
+     * 
+     * @static
+     */
+    popRoot(el: sce_component.Component): void;
   }
 
   interface Constructor {
-    (): SceContext;
+    (): Context;
   }
 }

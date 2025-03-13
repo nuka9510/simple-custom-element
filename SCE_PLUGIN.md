@@ -2,21 +2,21 @@
 ## type
 - `_plugin`
 ```
-action: sce_element.action;
-afterRender: (el: sce_element.SceElement) => void;
-destroy: (el: sce_element.SceElement) => void;
+action: sce_component.action;
+afterRender: (el: sce_component.SceComponent) => void;
+destroy: (el: sce_component.SceComponent) => void;
 ```
 - `plugin`
 ```
-target?: SceElement[]?;
+target?: SceComponent[]?;
 plugin: _plugin;
 ```
 ## method
 - `static get plugin(): plugin[]`
 ```
-SceElement에 사용할 plugin 배열 객체
+SceComponent에 사용할 plugin 배열 객체
 ```
 - `static appendPlugin(plugin: plugin): void`
 ```
-SceElement에 사용할 plugin을 추가 한다.
+SceComponent에 사용할 plugin을 추가 한다.
 ```

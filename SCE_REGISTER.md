@@ -3,7 +3,7 @@
 - `element`
 ```
 tagName: string;
-element: SceElement;
+element: sce_component.SceComponent;
 ```
 ## method
 - `get element(): element[]`

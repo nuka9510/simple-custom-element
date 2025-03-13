@@ -1,12 +1,5 @@
 # simple-custom-element
 
-## Classes
-- `SceUtil`
-- `SceElement`
-- `ScePlugin`
-- `SceRegister`
-- `SceValidation`
-
 ## 사용법
 ```
 example
@@ -14,12 +7,13 @@ example
 │  ├── module
 │  │  └── simple-custom-element
 │  │     └── src
+│  │        ├── component.js
 │  │        ├── context.js
-│  │        ├── element.js
 │  │        ├── index.js
 │  │        ├── plugin.js
-│  │        ├── proxy.js
 │  │        ├── register.js
+│  │        ├── state.js
+│  │        ├── util.js
 │  │        └── validation.js
 │  ├── component
 │  │  └── test-element.js
@@ -31,9 +25,9 @@ example
 ```
 - `js/component/test-element.js`
 ```
-import { SceElement } from "../module/simple-custom-element/src/index.js";
+import { SceComponent } from "../module/simple-custom-element/src/index.js";
 
-export default class TestElement extends SceElement {
+export default class TestElement extends SceComponent {
   get action() { return {
     'set-state': [
       {
@@ -110,10 +104,7 @@ import TestElement from "../component/test-element.js";
 export default class TestResister extends SceRegister {
   get element() {
     return [
-      {
-        tagName: 'test-element',
-        element: TestElement
-      }
+      { tagName: 'test-element', element: TestElement }
     ];
   }
 

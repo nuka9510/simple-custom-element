@@ -1,23 +1,23 @@
-import sce_element from "./element";
+import sce_component from "./component";
 
 export = sce_plugin;
 export as namespace sce_plugin;
 
 declare namespace sce_plugin {
   interface _plugin {
-    action: sce_element.action;
-    afterRender: (el: sce_element.SceElement) => void;
-    destroy: (el: sce_element.SceElement) => void;
+    action: sce_component.action;
+    afterRender: (el: sce_component.Component) => void;
+    destroy: (el: sce_component.Component) => void;
   }
 
   interface plugin {
-    target?: SceElement[]?;
+    target?: SceComponent[]?;
     plugin: _plugin;
   };
 
   class Plugin {
     /**
-     * `SceElement`에 사용할 `plugin` 배열 객체
+     * `SceComponent`에 사용할 `plugin` 배열 객체
      * 
      * @private
      * @static
@@ -25,14 +25,14 @@ declare namespace sce_plugin {
     private _plugin: plugin[];
 
     /**
-     * `SceElement`에 사용할 `plugin` 배열 객체
+     * `SceComponent`에 사용할 `plugin` 배열 객체
      * 
      * @static
      */
     get plugin(): plugin[];
 
     /**
-     * `SceElement`에 사용할 `plugin`을 추가 한다.
+     * `SceComponent`에 사용할 `plugin`을 추가 한다.
      * 
      * @static
      */

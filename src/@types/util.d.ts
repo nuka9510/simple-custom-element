@@ -1,4 +1,4 @@
-import sce_element from "./element.js";
+import sce_component from "./component.js";
 
 export = sce_util;
 export as namespace sce_util;
@@ -14,7 +14,7 @@ declare namespace sce_util {
     millisecond?: number;
   }
 
-  class SceUtil {
+  class Util {
     /**
      * 값이 비어있는지 확인한다.
      *
@@ -454,6 +454,6 @@ declare namespace sce_util {
   }
 
   interface Constructor {
-    (): SceUtil;
+    (): Util;
   }
 }

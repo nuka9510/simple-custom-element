@@ -1,5 +1,5 @@
-export default class SceRegister {
-  /** @type {sce_register.SceRegister['element']} */
+export default class Register {
+  /** @type {sce_register.Register['element']} */
   get element() { return []; };
 
   /** @type {sce_register.Constructor} */

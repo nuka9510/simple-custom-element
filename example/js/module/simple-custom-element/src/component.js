@@ -1,26 +1,24 @@
-import SceContext from "./context.js";
-import ScePlugin from "./plugin.js";
-import SceState from "./state.js";
-import SceUtil from "./util.js";
+import Context from "./context.js";
+import { ScePlugin, SceState, SceUtil } from "./index.js";
 
 /** @extends {HTMLElement} */
-export default class SceElement extends HTMLElement {
-  /** @type {sce_element.SceElement['_plugin']} */
+export default class Component extends HTMLElement {
+  /** @type {sce_component.Component['_plugin']} */
   #plugin;
 
-  /** @type {sce_element.SceElement['_isLoaded']} */
+  /** @type {sce_component.Component['_isLoaded']} */
   #isLoaded;
 
-  /** @type {sce_element.SceElement['_template']} */
+  /** @type {sce_component.Component['_template']} */
   #template;
 
-  /** @type {sce_element.SceElement['_root']} */
+  /** @type {sce_component.Component['_root']} */
   #root;
 
-  /** @type {sce_element.SceElement['__action']} */
+  /** @type {sce_component.Component['__action']} */
   #_action;
 
-  /** @type {sce_element.SceElement['_action']} */
+  /** @type {sce_component.Component['_action']} */
   get #action() { return {
     'prevent-default': [
       { callback: this.#preventDefault }
@@ -44,19 +42,19 @@ export default class SceElement extends HTMLElement {
     ]
   }; };
 
-  /** @type {sce_element.SceElement['action']} */
+  /** @type {sce_component.Component['action']} */
   get action() { return {}; };
 
-  /** @type {sce_element.SceElement['isLoaded']} */
+  /** @type {sce_component.Component['isLoaded']} */
   get isLoaded() { return this.#isLoaded; }
 
-  /** @type {sce_element.SceElement['root']} */
+  /** @type {sce_component.Component['root']} */
   get root() { return this.#root; }
 
-  /** @type {sce_element.SceElement['observedAttributes']} */
+  /** @type {sce_component.Component['observedAttributes']} */
   static get observedAttributes() { return []; }
 
-  /** @type {sce_element.Constructor} */
+  /** @type {sce_component.Constructor} */
   constructor() {
     super();
 
@@ -66,7 +64,7 @@ export default class SceElement extends HTMLElement {
     );
     this.#isLoaded = false;
     this.#template = document.createElement('template');
-    this.#root = SceContext.getRoot(this) ?? document;
+    this.#root = Context.getRoot(this) ?? document;
     this.#_action = {
       ...this.#action,
       ...this.#plugin.reduce(
@@ -90,19 +88,19 @@ export default class SceElement extends HTMLElement {
       this.#_action[action].forEach((...arg) => { arg[0].callback = arg[0].callback.bind(this); });
     }
 
-    SceContext.popRoot(this);
+    Context.popRoot(this);
   }
 
-  /** @type {sce_element.SceElement['init']} */
+  /** @type {sce_component.Component['init']} */
   async init() {}
 
-  /** @type {sce_element.SceElement['afterRender']} */
+  /** @type {sce_component.Component['afterRender']} */
   afterRender() {}
 
-  /** @type {sce_element.SceElement['render']} */
+  /** @type {sce_component.Component['render']} */
   render() {}
 
-  /** @type {sce_element.SceElement['_render']} */
+  /** @type {sce_component.Component['_render']} */
   #render() {
     /** @type {DocumentFragment} */
     let node;
@@ -112,7 +110,7 @@ export default class SceElement extends HTMLElement {
     node = this.#template.content.cloneNode(true);
 
     node.querySelectorAll('*').forEach((...arg) => {
-      if (customElements.get(arg[0].localName)) { SceContext.setRoot(arg[0], this); }
+      if (customElements.get(arg[0].localName)) { Context.setRoot(arg[0], this); }
     });
 
     this.innerHTML = null;
@@ -122,17 +120,17 @@ export default class SceElement extends HTMLElement {
     this.afterRender();
   }
 
-  /** @type {sce_element.SceElement['destroy']} */
+  /** @type {sce_component.Component['destroy']} */
   destroy() {}
 
-  /** @type {sce_element.SceElement['_destroy']} */
+  /** @type {sce_component.Component['_destroy']} */
   #destroy() {
     this.destroy();
     this.#plugin.forEach((...arg) => { arg[0].plugin.destroy(this); });
     this.#removeEvent();
   }
 
-  /** @type {sce_element.SceElement['setState']} */
+  /** @type {sce_component.Component['setState']} */
   setState(state) {
     return new SceState(
       state,
@@ -143,10 +141,10 @@ export default class SceElement extends HTMLElement {
     );
   }
 
-  /** @type {sce_element.SceElement['getParams']} */
+  /** @type {sce_component.Component['getParams']} */
   getParams() { return new URLSearchParams(location.search); }
 
-  /** @type {sce_element.SceElement['connectedCallback']} */
+  /** @type {sce_component.Component['connectedCallback']} */
   connectedCallback() {
     this.init()
         .then(() => {
@@ -156,15 +154,15 @@ export default class SceElement extends HTMLElement {
         });
   }
 
-  /** @type {sce_element.SceElement['disconnectedCallback']} */
+  /** @type {sce_component.Component['disconnectedCallback']} */
   disconnectedCallback() {
     if (this.#isLoaded) { this.#destroy(); }
   }
 
-  /** @type {sce_element.SceElement['adoptedCallback']} */
+  /** @type {sce_component.Component['adoptedCallback']} */
   adoptedCallback() { }
 
-  /** @type {sce_element.SceElement['attributeChangedCallback']} */
+  /** @type {sce_component.Component['attributeChangedCallback']} */
   attributeChangedCallback(target, oldValue, newValue) {
     if (this.#isLoaded) {
       this.updateAttribute(target, oldValue, newValue);
@@ -173,10 +171,10 @@ export default class SceElement extends HTMLElement {
     }
   }
 
-  /** @type {sce_element.SceElement['updateAttribute']} */
+  /** @type {sce_component.Component['updateAttribute']} */
   updateAttribute(target, oldValue, newValue) {}
 
-  /** @type {sce_element.SceElement['_addEvent']} */
+  /** @type {sce_component.Component['_addEvent']} */
   #addEvent() {
     for (const action in this.#_action) {
       this.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((...arg) => {
@@ -191,7 +189,7 @@ export default class SceElement extends HTMLElement {
     }
   }
 
-  /** @type {sce_element.SceElement['_removeEvent']} */
+  /** @type {sce_component.Component['_removeEvent']} */
   #removeEvent() {
     for (const action in this.#_action) {
       this.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((...arg) => {
@@ -206,16 +204,16 @@ export default class SceElement extends HTMLElement {
     }
   }
 
-  /** @type {sce_element.SceElement['_preventDefault']} */
+  /** @type {sce_component.Component['_preventDefault']} */
   #preventDefault(ev) { ev.preventDefault(); }
 
-  /** @type {sce_element.SceElement['_stopPropagation']} */
+  /** @type {sce_component.Component['_stopPropagation']} */
   #stopPropagation(ev) { ev.stopPropagation(); }
 
-  /** @type {sce_element.SceElement['afterSubSelect']} */
+  /** @type {sce_component.Component['afterSubSelect']} */
   async afterSubSelect(ev) {}
 
-  /** @type {sce_element.SceElement['_subSelect']} */
+  /** @type {sce_component.Component['_subSelect']} */
   #subSelect(ev) {
     /** @type {HTMLSelectElement} */
     const node = ev.currentTarget,
@@ -235,10 +233,10 @@ export default class SceElement extends HTMLElement {
     });
   }
 
-  /** @type {sce_element.SceElement['afterCheckAll']} */
+  /** @type {sce_component.Component['afterCheckAll']} */
   async afterCheckAll(ev) {}
 
-  /** @type {sce_element.SceElement['_checkAll']} */
+  /** @type {sce_component.Component['_checkAll']} */
   async #checkAll(ev) {
     /** @type {HTMLInputElement} */
     const node = ev.currentTarget;
@@ -248,7 +246,7 @@ export default class SceElement extends HTMLElement {
     await this.afterCheckAll(ev);
   }
 
-  /** @type {sce_element.SceElement['_numberOnlyKeydown']} */
+  /** @type {sce_component.Component['_numberOnlyKeydown']} */
   #numberOnlyKeydown(ev) {
     /** @type {HTMLInputElement} */
     const node = ev.currentTarget;
@@ -265,7 +263,7 @@ export default class SceElement extends HTMLElement {
     }
   }
 
-  /** @type {sce_element.SceElement['_numberOnlyInput']} */
+  /** @type {sce_component.Component['_numberOnlyInput']} */
   #numberOnlyInput(ev) {
     /** @type {HTMLInputElement} */
     const node = ev.currentTarget;
@@ -298,10 +296,10 @@ export default class SceElement extends HTMLElement {
     this.#numberOnly(ev);
   }
 
-  /** @type {sce_element.SceElement['_numberOnlyBlur']} */
+  /** @type {sce_component.Component['_numberOnlyBlur']} */
   #numberOnlyBlur(ev) { this.#numberOnly(ev); }
 
-  /** @type {sce_element.SceElement['_numberOnly']} */
+  /** @type {sce_component.Component['_numberOnly']} */
   #numberOnly(ev) {
     /** @type {HTMLInputElement} */
     const node = ev.currentTarget,
@@ -396,10 +394,10 @@ export default class SceElement extends HTMLElement {
     if (!SceUtil.empty(node.selectionEnd)) { node.selectionEnd = selection; }
   }
 
-  /** @type {sce_element.SceElement['afterCheck']} */
+  /** @type {sce_component.Component['afterCheck']} */
   async afterCheck(ev) {}
 
-  /** @type {sce_element.SceElement['_check']} */
+  /** @type {sce_component.Component['_check']} */
   async #check(ev) {
     /** @type {HTMLInputElement} */
     const node = ev.currentTarget,

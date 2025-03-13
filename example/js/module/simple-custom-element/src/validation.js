@@ -1,22 +1,22 @@
-import SceUtil from "./util.js";
+import { SceUtil } from "./index.js";
 
-export default class SceValidation {
-  /** @type {sce_validation.SceValidation['result']} */
+export default class Validation {
+  /** @type {sce_validation.Validation['result']} */
   result;
 
-  /** @type {sce_validation.SceValidation['_el']} */
+  /** @type {sce_validation.Validation['_el']} */
   #el;
 
-  /** @type {sce_validation.SceValidation['_radio']} */
+  /** @type {sce_validation.Validation['_radio']} */
   #radio;
 
-  /** @type {sce_validation.SceValidation['_regex']} */
+  /** @type {sce_validation.Validation['_regex']} */
   #regex;
 
   /** @type {sce_validation.Constructor} */
   constructor(config) { this.init(config); }
 
-  /** @type {sce_validation.SceValidation['init']} */
+  /** @type {sce_validation.Validation['init']} */
   init(config = null) {
     this.#resultInit();
     this.#elInit();
@@ -24,7 +24,7 @@ export default class SceValidation {
     this.#regexInit(config?.regex);
   }
 
-  /** @type {sce_validation.SceValidation['_resultInit']} */
+  /** @type {sce_validation.Validation['_resultInit']} */
   #resultInit() {
     this.result = {
       flag: true,
@@ -33,13 +33,13 @@ export default class SceValidation {
     };
   }
 
-  /** @type {sce_validation.SceValidation['_elInit']} */
+  /** @type {sce_validation.Validation['_elInit']} */
   #elInit() { this.#el = {}; }
 
-  /** @type {sce_validation.SceValidation['_radioInit']} */
+  /** @type {sce_validation.Validation['_radioInit']} */
   #radioInit() { this.#radio = {}; }
 
-  /** @type {sce_validation.SceValidation['_regexInit']} */
+  /** @type {sce_validation.Validation['_regexInit']} */
   #regexInit(regex = null) {
     /** @type {sce_validation.regexDefault} */
     const _default = {
@@ -61,7 +61,7 @@ export default class SceValidation {
       };
   }
 
-  /** @type {sce_validation.SceValidation['_setRadio']} */
+  /** @type {sce_validation.Validation['_setRadio']} */
   #setRadio(el) {
     const required = el.getAttribute('required');
 
@@ -72,7 +72,7 @@ export default class SceValidation {
     }
   }
 
-  /** @type {sce_validation.SceValidation['_setEl']} */
+  /** @type {sce_validation.Validation['_setEl']} */
   #setEl(el) {
     const pattern = el.dataset.scePattern,
     date = el.dataset.sceDate;
@@ -98,7 +98,7 @@ export default class SceValidation {
     }
   }
 
-  /** @type {sce_validation.SceValidation['_required']} */
+  /** @type {sce_validation.Validation['_required']} */
   #required(el) {
     const required = el.getAttribute('required');
 
@@ -113,7 +113,7 @@ export default class SceValidation {
     }
   }
 
-  /** @type {sce_validation.SceValidation['_requiredRadio']} */
+  /** @type {sce_validation.Validation['_requiredRadio']} */
   #requiredRadio() {
     for (const i in this.#radio) {
       const el = this.#radio[i][0],
@@ -128,7 +128,7 @@ export default class SceValidation {
     }
   }
 
-  /** @type {sce_validation.SceValidation['_match']} */
+  /** @type {sce_validation.Validation['_match']} */
   #match() {
     for (const i in this.#el) {
       if (this.result.flag) {
@@ -144,7 +144,7 @@ export default class SceValidation {
     }
   }
 
-  /** @type {sce_validation.SceValidation['_isDate']} */
+  /** @type {sce_validation.Validation['_isDate']} */
   #isDate(el) {
     for (const i in el) {
       if (this.result.flag) {
@@ -168,7 +168,7 @@ export default class SceValidation {
     }
   }
 
-  /** @type {sce_validation.SceValidation['_isPattern']} */
+  /** @type {sce_validation.Validation['_isPattern']} */
   #isPattern(el) {
     if (Array.isArray(el)) {
       for (const i of el) {
@@ -208,7 +208,7 @@ export default class SceValidation {
     }
   }
 
-  /** @type {sce_validation.SceValidation['_length']} */
+  /** @type {sce_validation.Validation['_length']} */
   #length() {
     for (const i in this.#el) {
       if (
@@ -259,7 +259,7 @@ export default class SceValidation {
     }
   }
 
-  /** @type {sce_validation.SceValidation['run']} */
+  /** @type {sce_validation.Validation['run']} */
   run(form) {
     this.init();
 

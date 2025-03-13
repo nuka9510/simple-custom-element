@@ -4,10 +4,7 @@ import TestElement from "../component/test-element.js";
 export default class TestResister extends SceRegister {
   get element() {
     return [
-      {
-        tagName: 'test-element',
-        element: TestElement
-      }
+      { tagName: 'test-element', element: TestElement }
     ];
   }
 

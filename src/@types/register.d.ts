@@ -1,4 +1,4 @@
-import sce_element from "./element.js";
+import sce_component from "./component.js";
 
 export = sce_register;
 export as namespace sce_register;
@@ -6,10 +6,10 @@ export as namespace sce_register;
 declare namespace sce_register {
   interface element {
     tagName: string;
-    element: sce_element.SceElement;
+    element: sce_component.Component;
   }
 
-  class SceRegister {
+  class Register {
     /**
      * customElement.define을 실행 시 사용할 element
      */
@@ -17,6 +17,6 @@ declare namespace sce_register {
   }
 
   interface Constructor {
-    (): SceRegister;
+    (): Register;
   }
 }

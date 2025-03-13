@@ -52,7 +52,7 @@ declare namespace sce_validation {
     regex?: regex;
   }
 
-  class SceValidation {
+  class Validation {
     /** 결과 값 객체 */
     result: result;
 
@@ -100,7 +100,7 @@ declare namespace sce_validation {
      *   }
      * </script>
      */
-    constructor(config?: config): SceValidation;
+    constructor(config?: config): Validation;
 
     /** 객체 초기화 */
     init(config?: config): void;
@@ -207,6 +207,6 @@ declare namespace sce_validation {
      *   }
      * </script>
      */
-    (config?: config): SceValidation;
+    (config?: config): Validation;
   }
 }

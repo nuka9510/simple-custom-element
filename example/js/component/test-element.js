@@ -1,6 +1,6 @@
-import { SceElement } from "../module/simple-custom-element/src/index.js";
+import { SceComponent } from "../module/simple-custom-element/src/index.js";
 
-export default class TestElement extends SceElement {
+export default class TestElement extends SceComponent {
   get action() { return {
     'set-state': [
       {

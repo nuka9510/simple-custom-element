@@ -1,4 +1,4 @@
-# SceElement
+# SceComponent
 ## type
 - `action_callback`
 ```
@@ -12,16 +12,16 @@ option?: EventListenerOptions;
 ```
 - `root`
 ```
-SceElement | Document;
+SceComponent | Document;
 ```
 ## member
 - `isLoaded: boolean` (readonly)
 ```
-SceElement load 여부
+SceComponent load 여부
 ```
 - `root: root` (readonly)
 ```
-현재 SceElement를 호출 한 root
+현재 SceComponent를 호출 한 root
 ```
 ## method
 - `get action(): action`
@@ -30,7 +30,7 @@ EventListener에 할당 할 data-sce-action을 정의한 action
 ```
 - `async init(): Promise<void>`
 ```
-SceElement가 할당 될 때 실행한다.
+SceComponent가 할당 될 때 실행한다.
 ```
 - `render(): string`
 ```
@@ -48,7 +48,7 @@ this.state = this.setState({
 
 const state = this.state.get(); // SceState의 state를 반환
 
-this.state.set({ // SceState의 state를 재설정 한다. 실행 시 SceElement를 다시 render한다.
+this.state.set({ // SceState의 state를 재설정 한다. 실행 시 SceComponent를 다시 render한다.
   ...state,
   'B': 'b_value'
 });
@@ -61,7 +61,7 @@ this.state = this.setState({
 
 const value = this.state.get('A'); // param을 state의 key로 사용하는 SceState의 value를 반환
 
-this.state.set('A', 'a_value'); // param의 key를 사용하는 SceState의 value를 재설정 한다. 실행 시 SceElement를 다시 render한다.
+this.state.set('A', 'a_value'); // param의 key를 사용하는 SceState의 value를 재설정 한다. 실행 시 SceComponent를 다시 render한다.
 
 @param
 # state

@@ -1,5 +1,5 @@
-export default class SceUtil {
-  /** @type {sce_util.SceUtil['empty']} */
+export default class Util {
+  /** @type {sce_util.Util['empty']} */
   static empty(arg) {
     let result = [undefined, null, 0, ''].includes(arg);
 
@@ -15,7 +15,7 @@ export default class SceUtil {
     return result;
   }
 
-  /** @type {sce_util.SceUtil['isNumber']} */
+  /** @type {sce_util.Util['isNumber']} */
   static isNumber(arg, strict = false) {
     let result = !Number.isNaN(Number(arg)) &&
                 ['number', 'string'].includes(typeof arg) &&
@@ -29,21 +29,21 @@ export default class SceUtil {
     return result;
   }
 
-  /** @type {sce_util.SceUtil['isObject']} */
+  /** @type {sce_util.Util['isObject']} */
   static isObject(arg) { return arg?.constructor == Object; }
 
-  /** @type {sce_util.SceUtil['numberFormat']} */
+  /** @type {sce_util.Util['numberFormat']} */
   static numberFormat(num, decimals = 0, decimalSeparator = '.', thousandsSeparator = ',') {
     const result = String(num).split('.');
 
     result[0] = result[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSeparator);
 
-    if (!SceUtil.empty(result[1])) { result[1] = result[1].substring(0, decimals); }
+    if (!Util.empty(result[1])) { result[1] = result[1].substring(0, decimals); }
 
-    return (!SceUtil.empty(result[1])) ? result[0].concat(decimalSeparator, result[1]) : result[0];
+    return (!Util.empty(result[1])) ? result[0].concat(decimalSeparator, result[1]) : result[0];
   }
 
-  /** @type {sce_util.SceUtil['strftime']} */
+  /** @type {sce_util.Util['strftime']} */
   static strftime(date, format) {
     const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -67,7 +67,7 @@ export default class SceUtil {
     return format;
   }
 
-  /** @type {sce_util.SceUtil['checkdate']} */
+  /** @type {sce_util.Util['checkdate']} */
   static checkdate(year, month, day) {
     const date = new Date(year, (month - 1), day);
 
@@ -76,10 +76,10 @@ export default class SceUtil {
           date.getDate() == day;
   }
 
-  /** @type {sce_util.SceUtil['equaldate']} */
-  static equaldate(date1, date2 = new Date()) { return SceUtil.strftime(date1, '%Y-%m-%d') == SceUtil.strftime(date2, '%Y-%m-%d'); }
+  /** @type {sce_util.Util['equaldate']} */
+  static equaldate(date1, date2 = new Date()) { return Util.strftime(date1, '%Y-%m-%d') == Util.strftime(date2, '%Y-%m-%d'); }
 
-  /** @type {sce_util.SceUtil['getWeek']} */
+  /** @type {sce_util.Util['getWeek']} */
   static getWeek(date, flag = true) {
     const week = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
     result = week[date.getDay()];
@@ -87,41 +87,41 @@ export default class SceUtil {
     return (flag) ? result : result.replace(/^([ㄱ-ㅎㅏ-ㅣ가-힣]{1})[ㄱ-ㅎㅏ-ㅣ가-힣]+$/, '$1');
   }
 
-  /** @type {sce_util.SceUtil['addDate']} */
+  /** @type {sce_util.Util['addDate']} */
   static addDate(date, interval) {
     return new Date(
-      date.getFullYear() + (SceUtil.isNumber(interval.year, true) ? interval.year : 0),
-      date.getMonth() + (SceUtil.isNumber(interval.month, true) ? interval.month : 0),
-      date.getDate() + (SceUtil.isNumber(interval.day, true) ? interval.day : 0),
-      date.getHours() + (SceUtil.isNumber(interval.hour, true) ? interval.hour : 0),
-      date.getMinutes() + (SceUtil.isNumber(interval.minute, true) ? interval.minute : 0),
-      date.getSeconds() + (SceUtil.isNumber(interval.second, true) ? interval.second : 0),
-      date.getMilliseconds() + (SceUtil.isNumber(interval.millisecond, true) ? interval.millisecond : 0)
+      date.getFullYear() + (Util.isNumber(interval.year, true) ? interval.year : 0),
+      date.getMonth() + (Util.isNumber(interval.month, true) ? interval.month : 0),
+      date.getDate() + (Util.isNumber(interval.day, true) ? interval.day : 0),
+      date.getHours() + (Util.isNumber(interval.hour, true) ? interval.hour : 0),
+      date.getMinutes() + (Util.isNumber(interval.minute, true) ? interval.minute : 0),
+      date.getSeconds() + (Util.isNumber(interval.second, true) ? interval.second : 0),
+      date.getMilliseconds() + (Util.isNumber(interval.millisecond, true) ? interval.millisecond : 0)
     );
   }
 
-  /** @type {sce_util.SceUtil['subDate']} */
+  /** @type {sce_util.Util['subDate']} */
   static subDate(date, interval) {
     return new Date(
-      date.getFullYear() - (SceUtil.isNumber(interval.year, true) ? interval.year : 0),
-      date.getMonth() - (SceUtil.isNumber(interval.month, true) ? interval.month : 0),
-      date.getDate() - (SceUtil.isNumber(interval.day, true) ? interval.day : 0),
-      date.getHours() - (SceUtil.isNumber(interval.hour, true) ? interval.hour : 0),
-      date.getMinutes() - (SceUtil.isNumber(interval.minute, true) ? interval.minute : 0),
-      date.getSeconds() - (SceUtil.isNumber(interval.second, true) ? interval.second : 0),
-      date.getMilliseconds() - (SceUtil.isNumber(interval.millisecond, true) ? interval.millisecond : 0)
+      date.getFullYear() - (Util.isNumber(interval.year, true) ? interval.year : 0),
+      date.getMonth() - (Util.isNumber(interval.month, true) ? interval.month : 0),
+      date.getDate() - (Util.isNumber(interval.day, true) ? interval.day : 0),
+      date.getHours() - (Util.isNumber(interval.hour, true) ? interval.hour : 0),
+      date.getMinutes() - (Util.isNumber(interval.minute, true) ? interval.minute : 0),
+      date.getSeconds() - (Util.isNumber(interval.second, true) ? interval.second : 0),
+      date.getMilliseconds() - (Util.isNumber(interval.millisecond, true) ? interval.millisecond : 0)
     );
   }
 
-  /** @type {sce_util.SceUtil['xor']} */
+  /** @type {sce_util.Util['xor']} */
   static xor(arg1, arg2) {
     return !(arg1 && arg2) &&
           (arg1 || arg2);
   }
 
-  /** @type {sce_util.SceUtil['setCookie']} */
+  /** @type {sce_util.Util['setCookie']} */
   static setCookie(key, value, expire, path = '/', domain = location.hostname) {
-    if (SceUtil.empty(expire)) {
+    if (Util.empty(expire)) {
       expire = new Date();
       
       expire.setDate(expire.getDate() + 1);
@@ -130,20 +130,20 @@ export default class SceUtil {
     document.cookie = `${key}=${value}; expires=${expire.toUTCString()}; path=${path}; domain=${domain}`;
   }
 
-  /** @type {sce_util.SceUtil['getCookie']} */
+  /** @type {sce_util.Util['getCookie']} */
   static getCookie(key) {
     let result = document.cookie
                           .split('; ')
                           .find((...arg) => arg[0].startsWith(key));
         
-    if (!SceUtil.empty(result)) {
+    if (!Util.empty(result)) {
       result = result.split('=')[1];
     } else { result = null; }
 
     return result;
   }
 
-  /** @type {sce_util.SceUtil['popCookie']} */
+  /** @type {sce_util.Util['popCookie']} */
   static popCookie(key, path = '/', domain = location.hostname) {
     const expire = new Date();
     
@@ -152,7 +152,7 @@ export default class SceUtil {
     document.cookie = `${key}=; expires=${expire.toUTCString()}; path=${path}; domain=${domain}`;
   }
 
-  /** @type {sce_util.SceUtil['formDataToJson']} */
+  /** @type {sce_util.Util['formDataToJson']} */
   static formDataToJson(formData) {
     return JSON.stringify(
       Object.fromEntries(
@@ -168,10 +168,10 @@ export default class SceUtil {
     );
   }
 
-  /** @type {sce_util.SceUtil['percentage']} */
+  /** @type {sce_util.Util['percentage']} */
   static percentage(num, per) { return num * (per / 100); }
 
-  /** @type {sce_util.SceUtil['ratio']} */
+  /** @type {sce_util.Util['ratio']} */
   static ratio(ratio, num, flag = true) {
     const index = flag
       ? [1, 0]
@@ -180,13 +180,13 @@ export default class SceUtil {
     return (num * ratio[index[0]]) / ratio[index[1]];
   }
 
-  /** @type {sce_util.SceUtil['arithmeticSequence']} */
+  /** @type {sce_util.Util['arithmeticSequence']} */
   static arithmeticSequence(a, x, d, n) { return a + ((n - x) * d); }
 
-  /** @type {sce_util.SceUtil['geometricSequence']} */
+  /** @type {sce_util.Util['geometricSequence']} */
   static geometricSequence(a, x, r, n) { return (a / (r ** (x - 1))) * (r ** (n - 1)); }
 
-  /** @type {sce_util.SceUtil['decimalAdjust']} */
+  /** @type {sce_util.Util['decimalAdjust']} */
   static decimalAdjust(type, value, exp = 0) {
     const [m, n = 0] = value.toString().split('e'),
     adjustValue = Math[type](`${m}e${parseInt(n) + exp}`),
@@ -195,7 +195,7 @@ export default class SceUtil {
     return Number(`${nm}e${parseInt(nn) - exp}`);
   }
 
-  /** @type {sce_util.SceUtil['encodeHtmlEntity']} */
+  /** @type {sce_util.Util['encodeHtmlEntity']} */
   static encodeHtmlEntity(arg) {
     const textarea = document.createElement('textarea');
 
@@ -204,7 +204,7 @@ export default class SceUtil {
     return textarea.innerHTML;
   }
 
-  /** @type {sce_util.SceUtil['decodeHtmlEntity']} */
+  /** @type {sce_util.Util['decodeHtmlEntity']} */
   static decodeHtmlEntity(arg) {
     const textarea = document.createElement('textarea');
 
@@ -213,24 +213,24 @@ export default class SceUtil {
     return textarea.innerText;
   }
 
-  /** @type {sce_util.SceUtil['copy']} */
+  /** @type {sce_util.Util['copy']} */
   static copy(arg) {
-    if (SceUtil.isObject(arg)) {
+    if (Util.isObject(arg)) {
       const result = {};
 
-      for (const i in arg) { result[i] = SceUtil.copy(arg[i]); }
+      for (const i in arg) { result[i] = Util.copy(arg[i]); }
 
       return result;
     } else if (Array.isArray(arg)) {
       const result = [];
 
-      for (const i of arg) { result.push(SceUtil.copy(i)); }
+      for (const i of arg) { result.push(Util.copy(i)); }
 
       return result;
     } else { return arg; }
   }
 
-  /** @type {sce_util.SceUtil['numRange']} */
+  /** @type {sce_util.Util['numRange']} */
   static numRange(sNum, eNum) {
     let range = (eNum - sNum);
 
@@ -238,12 +238,12 @@ export default class SceUtil {
 
     range = Math.abs(range) + 1;
 
-    return [...new Array(range)].map((el, i, arr) => (i * ((flag) ? 1 : -1)) + sNum);
+    return [...new Array(range)].map((...arg) => (arg[1] * ((flag) ? 1 : -1)) + sNum);
   }
 
-  /** @type {sce_util.SceUtil['arrayChunk']} */
+  /** @type {sce_util.Util['arrayChunk']} */
   static arrayChunk(arr, size) {
-    if (!SceUtil.isNumber(size, true)) { throw new TypeError("size는 숫자 타입 이어야 합니다."); }
+    if (!Util.isNumber(size, true)) { throw new TypeError("size는 숫자 타입 이어야 합니다."); }
     if (
       size <= 0 &&
       Number.isInteger(size)
@@ -251,7 +251,7 @@ export default class SceUtil {
 
     const _arr = [];
 
-    SceUtil.numRange(0, SceUtil.decimalAdjust('ceil', arr.length / size) + ((arr.length > 0) ? -1 : 0))
+    Util.numRange(0, Util.decimalAdjust('ceil', arr.length / size) + ((arr.length > 0) ? -1 : 0))
             .forEach((...arg) => { _arr.push(arr.slice(arg[0] * size, (arg[0] + 1) * size)); });
 
     return _arr;
