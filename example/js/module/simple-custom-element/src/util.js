@@ -251,7 +251,7 @@ export default class SceUtil {
 
     const _arr = [];
 
-    SceUtil.numRange(0, SceUtil.decimalAdjust('ceil', arr.length / size) - 1)
+    SceUtil.numRange(0, SceUtil.decimalAdjust('ceil', arr.length / size) + ((arr.length > 0) ? -1 : 0))
             .forEach((...arg) => { _arr.push(arr.slice(arg[0] * size, (arg[0] + 1) * size)); });
 
     return _arr;
