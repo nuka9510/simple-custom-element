@@ -120,14 +120,14 @@ export default class Util {
   }
 
   /** @type {sce_util.Util['setCookie']} */
-  static setCookie(key, value, expire, path = '/', domain = location.hostname) {
+  static setCookie(key, value, expire, domain, path = '/') {
     if (Util.empty(expire)) {
       expire = new Date();
       
       expire.setDate(expire.getDate() + 1);
     }
 
-    document.cookie = `${key}=${value}; expires=${expire.toUTCString()}; path=${path}; domain=${domain}`;
+    document.cookie = `${key}=${value}; expires=${expire.toUTCString()}; ${(Util.empty(domain)) ? '' : `domain=${domain}`} path=${path};`;
   }
 
   /** @type {sce_util.Util['getCookie']} */
@@ -144,12 +144,12 @@ export default class Util {
   }
 
   /** @type {sce_util.Util['popCookie']} */
-  static popCookie(key, path = '/', domain = location.hostname) {
+  static popCookie(key, domain, path = '/') {
     const expire = new Date();
     
     expire.setDate(expire.getDate() - 1);
 
-    document.cookie = `${key}=; expires=${expire.toUTCString()}; path=${path}; domain=${domain}`;
+    document.cookie = `${key}=; expires=${expire.toUTCString()}; ${(Util.empty(domain)) ? '' : `domain=${domain}`} path=${path};`;
   }
 
   /** @type {sce_util.Util['formDataToJson']} */

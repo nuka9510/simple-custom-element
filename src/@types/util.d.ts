@@ -273,8 +273,8 @@ declare namespace sce_util {
      * @param key 
      * @param value 
      * @param expire 
+     * @param domain
      * @param path #default `'/'`
-     * @param domain #default `location.hostname`
      * 
      * @static
      */
@@ -282,8 +282,8 @@ declare namespace sce_util {
       key: string,
       value: string,
       expire?: Date,
-      path?: string,
-      domain?: string
+      domain?: string,
+      path?: string
     ): void;
 
     /**
@@ -304,15 +304,15 @@ declare namespace sce_util {
      * 
      * popCookie('key');
      * @param key 
+     * @param domain
      * @param path #default `'/'`
-     * @param domain #default `location.hostname`
      * 
      * @static
      */
     popCookie(
       key: string,
-      path?: string,
-      domain?: string
+      domain?: string,
+      path?: string
     ): void;
 
     /**
