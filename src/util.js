@@ -120,15 +120,7 @@ export default class Util {
   }
 
   /** @type {sce_util.Util['setCookie']} */
-  static setCookie(key, value, expire, domain, path = '/') {
-    if (Util.empty(expire)) {
-      expire = new Date();
-      
-      expire.setDate(expire.getDate() + 1);
-    }
-
-    document.cookie = `${key}=${value}; expires=${expire.toUTCString()}; ${(Util.empty(domain)) ? '' : `domain=${domain}`} path=${path};`;
-  }
+  static setCookie(key, value, expire = Util.addDate(new Date(), { day: 1 }), path = '/', domain) { document.cookie = `${key}=${value ?? ''}; expires=${expire.toUTCString()}; path=${path}; ${(Util.empty(domain)) ? '' : `domain=${domain};`}`; }
 
   /** @type {sce_util.Util['getCookie']} */
   static getCookie(key) {
@@ -144,13 +136,7 @@ export default class Util {
   }
 
   /** @type {sce_util.Util['popCookie']} */
-  static popCookie(key, domain, path = '/') {
-    const expire = new Date();
-    
-    expire.setDate(expire.getDate() - 1);
-
-    document.cookie = `${key}=; expires=${expire.toUTCString()}; ${(Util.empty(domain)) ? '' : `domain=${domain}`} path=${path};`;
-  }
+  static popCookie(key, path = '/', domain) { Util.setCookie(key, null, Util.subDate(new Date(), { day: 1 }), path, domain); }
 
   /** @type {sce_util.Util['formDataToJson']} */
   static formDataToJson(formData) {

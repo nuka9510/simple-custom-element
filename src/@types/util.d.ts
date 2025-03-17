@@ -272,18 +272,18 @@ declare namespace sce_util {
      * setCookie('key', 'value');
      * @param key 
      * @param value 
-     * @param expire 
-     * @param domain
+     * @param expire #default `Util.addDate(new Date(), { day: 1 })`
      * @param path #default `'/'`
+     * @param domain 
      * 
      * @static
      */
     setCookie(
       key: string,
-      value: string,
+      value: string?,
       expire?: Date,
-      domain?: string,
-      path?: string
+      path?: string,
+      domain?: string
     ): void;
 
     /**
@@ -304,15 +304,15 @@ declare namespace sce_util {
      * 
      * popCookie('key');
      * @param key 
-     * @param domain
      * @param path #default `'/'`
+     * @param domain
      * 
      * @static
      */
     popCookie(
       key: string,
-      domain?: string,
-      path?: string
+      path?: string,
+      domain?: string
     ): void;
 
     /**
