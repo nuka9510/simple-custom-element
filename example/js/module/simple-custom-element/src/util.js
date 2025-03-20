@@ -120,7 +120,7 @@ export default class Util {
   }
 
   /** @type {sce_util.Util['setCookie']} */
-  static setCookie(key, value, expire = Util.addDate(new Date(), { day: 1 }), path = '/', domain) { document.cookie = `${key}=${value ?? ''}; expires=${expire.toUTCString()}; path=${path}; ${(Util.empty(domain)) ? '' : `domain=${domain};`}`; }
+  static setCookie(key, value, expire, path = '/', domain) { document.cookie = `${ key }=${ value ?? '' }; ${ Util.empty(expire) ? '' : `expires=${ expire.toUTCString() };` } path=${ path }; ${ Util.empty(domain) ? '' : `domain=${ domain };` }`; }
 
   /** @type {sce_util.Util['getCookie']} */
   static getCookie(key) {
@@ -175,10 +175,10 @@ export default class Util {
   /** @type {sce_util.Util['decimalAdjust']} */
   static decimalAdjust(type, value, exp = 0) {
     const [m, n = 0] = value.toString().split('e'),
-    adjustValue = Math[type](`${m}e${parseInt(n) + exp}`),
+    adjustValue = Math[type](`${ m }e${ parseInt(n) + exp }`),
     [nm, nn = 0] = adjustValue.toString().split('e');
 
-    return Number(`${nm}e${parseInt(nn) - exp}`);
+    return Number(`${ nm }e${ parseInt(nn) - exp }`);
   }
 
   /** @type {sce_util.Util['encodeHtmlEntity']} */

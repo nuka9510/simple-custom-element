@@ -272,7 +272,7 @@ declare namespace sce_util {
      * setCookie('key', 'value');
      * @param key 
      * @param value 
-     * @param expire #default `Util.addDate(new Date(), { day: 1 })`
+     * @param expire
      * @param path #default `'/'`
      * @param domain 
      * 
