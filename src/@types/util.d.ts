@@ -1,5 +1,3 @@
-import sce_component from "./component.js";
-
 export = sce_util;
 export as namespace sce_util;
 
