@@ -1,27 +1,36 @@
-# simple-custom-element
+[![GITHUB][github]][github-url]
+[![NPM][npm]][npm-url]
 
-## 사용법
+# simple-custom-element
+## Installation
 ```
-example
-├── js
-│  ├── module
-│  │  └── simple-custom-element
-│  │     └── src
-│  │        ├── component.js
-│  │        ├── context.js
-│  │        ├── index.js
-│  │        ├── plugin.js
-│  │        ├── register.js
-│  │        ├── state.js
-│  │        ├── util.js
-│  │        └── validation.js
-│  ├── component
-│  │  └── test-element.js
-│  ├── register
-│  │  └── test-register.js
-│  └── test.js
-└── view
-   └── test.html
+npm i @nuka9510/simple-custom-element
+```
+## Usage
+```
+root
+├── dist
+│  ├── component.js
+│  ├── context.js
+│  ├── index.js
+│  ├── plugin.js
+│  ├── register.js
+│  └── state.js
+├── example
+│  ├── js
+│  │  ├── component
+│  │  │  └── test-element.js
+│  │  ├── register
+│  │  │  └── test-register.js
+│  │  └── index.js
+│  └── view
+│     └── index.html
+└── node_modules
+   └── @nuka9510
+      └── js-util
+         └── dist
+            ├── index.js
+            └── util.js
 ```
 - `js/component/test-element.js`
 ```
@@ -168,3 +177,8 @@ new TestResister();
 <script src="../js/test.js" type="module"></script>
 </html>
 ```
+
+[github]: https://img.shields.io/badge/github-blue.svg?style=flat&logo=github
+[github-url]: https://github.com/nuka9510/simple-custom-element
+[npm]: https://img.shields.io/badge/npm-1.0.0-blue.svg?style=flat&logo=nodedotjs
+[npm-url]: https://www.npmjs.com/package/@nuka9510/simple-custom-element

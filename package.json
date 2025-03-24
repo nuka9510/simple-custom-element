@@ -1,0 +1,31 @@
+{
+  "name": "@nuka9510/simple-custom-element",
+  "version": "1.0.0",
+  "description": "simple custom element util for web front-end",
+  "main": "dist/index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nuka9510/simple-custom-element.git"
+  },
+  "keywords": [
+    "web",
+    "front-end",
+    "util",
+    "custom-element"
+  ],
+  "author": "nuka9510",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nuka9510/simple-custom-element/issues"
+  },
+  "homepage": "https://github.com/nuka9510/simple-custom-element",
+  "dependencies": {
+    "@nuka9510/js-util": "^1.0.18"
+  }
+}

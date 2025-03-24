@@ -1,12 +1,10 @@
-import { SceComponent } from "../module/simple-custom-element/src/index.js";
+import { JUtil } from "@nuka9510/js-util";
+import { SCEComponent } from "@nuka9510/simple-custom-element";
 
-export default class TestElement extends SceComponent {
+export default class TestElement extends SCEComponent {
   get action() { return {
     'set-state': [
-      {
-        event: 'click',
-        callback: this.onSetStateClick
-      }
+      { event: 'click', callback: this.onSetStateClick }
     ]
   }; }
 
@@ -46,15 +44,15 @@ export default class TestElement extends SceComponent {
         <tbody>
           ${
             this[state.arg].list.reduce(
-              (acc, cur, i, arr) => `
-                ${acc}
+              (...arg) => `
+                ${ arg[0] }
                 <tr>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${cur.num} </td>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${cur.num * 2} </td>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${cur.num ** 2} </td>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${this.util.numberFormat((cur.num / (cur.num * 2)) * 100, 3)} </td>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${this.util.numberFormat((cur.num / (cur.num ** 2)) * 100, 3)} </td>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${this.util.numberFormat(((cur.num * 2) / (cur.num ** 2)) * 100, 3)} </td>
+                  <td style="text-align: center; border: 1px solid #000000;"> ${ arg[1].num } </td>
+                  <td style="text-align: center; border: 1px solid #000000;"> ${ arg[1].num * 2 } </td>
+                  <td style="text-align: center; border: 1px solid #000000;"> ${ arg[1].num ** 2 } </td>
+                  <td style="text-align: center; border: 1px solid #000000;"> ${ JUtil.numberFormat((arg[1].num / (arg[1].num * 2)) * 100, 3) } </td>
+                  <td style="text-align: center; border: 1px solid #000000;"> ${ JUtil.numberFormat((arg[1].num / (arg[1].num ** 2)) * 100, 3) } </td>
+                  <td style="text-align: center; border: 1px solid #000000;"> ${ JUtil.numberFormat(((arg[1].num * 2) / (arg[1].num ** 2)) * 100, 3) } </td>
                 </tr>
               `, ''
             )
