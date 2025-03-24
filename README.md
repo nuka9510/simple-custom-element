@@ -34,17 +34,17 @@ root
 ```
 - `js/component/test-element.js`
 ```
-import { SceComponent } from "../module/simple-custom-element/src/index.js";
+import { JUtil } from "@nuka9510/js-util";
+import { SCEComponent } from "@nuka9510/simple-custom-element";
 
-export default class TestElement extends SceComponent {
-  get action() { return {
-    'set-state': [
-      {
-        event: 'click',
-        callback: this.onSetStateClick
-      }
-    ]
-  }; }
+export default class TestElement extends SCEComponent {
+  get action() {
+    return {
+      'set-state': [
+        { event: 'click', callback: this.onSetStateClick }
+      ]
+    };
+  }
 
   async init() {
     this.state = this.setState({ arg: 'arg1' });
@@ -82,15 +82,15 @@ export default class TestElement extends SceComponent {
         <tbody>
           ${
             this[state.arg].list.reduce(
-              (acc, cur, i, arr) => `
-                ${acc}
+              (...arg) => `
+                ${ arg[0] }
                 <tr>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${cur.num} </td>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${cur.num * 2} </td>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${cur.num ** 2} </td>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${this.util.numberFormat((cur.num / (cur.num * 2)) * 100, 3)} </td>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${this.util.numberFormat((cur.num / (cur.num ** 2)) * 100, 3)} </td>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${this.util.numberFormat(((cur.num * 2) / (cur.num ** 2)) * 100, 3)} </td>
+                  <td style="text-align: center; border: 1px solid #000000;"> ${ arg[1].num } </td>
+                  <td style="text-align: center; border: 1px solid #000000;"> ${ arg[1].num * 2 } </td>
+                  <td style="text-align: center; border: 1px solid #000000;"> ${ arg[1].num ** 2 } </td>
+                  <td style="text-align: center; border: 1px solid #000000;"> ${ JUtil.numberFormat((arg[1].num / (arg[1].num * 2)) * 100, 3) } </td>
+                  <td style="text-align: center; border: 1px solid #000000;"> ${ JUtil.numberFormat((arg[1].num / (arg[1].num ** 2)) * 100, 3) } </td>
+                  <td style="text-align: center; border: 1px solid #000000;"> ${ JUtil.numberFormat(((arg[1].num * 2) / (arg[1].num ** 2)) * 100, 3) } </td>
                 </tr>
               `, ''
             )
@@ -107,10 +107,10 @@ export default class TestElement extends SceComponent {
 ```
 - `js/register/test-register.js`
 ```
-import { SceRegister } from "../module/simple-custom-element/src/index.js";
+import { SCERegister } from "@nuka9510/simple-custom-element";
 import TestElement from "../component/test-element.js";
 
-export default class TestResister extends SceRegister {
+export default class TestResister extends SCERegister {
   get element() {
     return [
       { tagName: 'test-element', element: TestElement }
@@ -119,13 +119,13 @@ export default class TestResister extends SceRegister {
 
 }
 ```
-- `js/test.js`
+- `js/index.js`
 ```
 import TestResister from "./register/test-register.js";
 
 new TestResister();
 ```
-- `view/test.html`
+- `view/index.html`
 ```
 <!DOCTYPE html>
 <html lang="en">
@@ -174,7 +174,25 @@ new TestResister();
     </script>
   </test-element>
 </body>
-<script src="../js/test.js" type="module"></script>
+<script type="importmap">
+  {
+    "imports": {
+      "@nuka9510/js-util": "/node_modules/@nuka9510/js-util/dist/index.js",
+      "@nuka9510/simple-custom-element": "/dist/index.js"
+    },
+    "scopes": {
+      "/dist/": {
+        "/dist/component": "/dist/component.js",
+        "/dist/context": "/dist/context.js",
+        "/dist/plugin": "/dist/plugin.js",
+        "/dist/register": "/dist/register.js",
+        "/dist/state": "/dist/state.js"
+      },
+      "/node_modules/@nuka9510/js-util/dist/": { "/node_modules/@nuka9510/js-util/dist/util": "/node_modules/@nuka9510/js-util/dist/util.js" }
+    }
+  }
+</script>
+<script src="../js/index.js" type="module"></script>
 </html>
 ```
 

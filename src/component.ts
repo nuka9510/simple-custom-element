@@ -45,10 +45,10 @@ export default class Component extends HTMLElement {
         { event: 'click', callback: this.#check }
       ]
     };
-  };
+  }
 
   /** `EventListener`에 할당 할 `data-sce-action`을 정의한 `action` */
-  get action(): action { return {}; };
+  get action(): action { return {}; }
 
   /** `Component` `load` 여부 */
   get isLoaded(): boolean { return this.#isLoaded; }

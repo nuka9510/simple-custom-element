@@ -38,10 +38,8 @@ export default class Component extends HTMLElement {
             ]
         };
     }
-    ;
     /** `EventListener`에 할당 할 `data-sce-action`을 정의한 `action` */
     get action() { return {}; }
-    ;
     /** `Component` `load` 여부 */
     get isLoaded() { return this.#isLoaded; }
     /** 현재 `Component`를 호출 한 `Document` 또는 `Component` 객체 */

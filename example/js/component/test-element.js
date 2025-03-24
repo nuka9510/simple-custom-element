@@ -2,11 +2,13 @@ import { JUtil } from "@nuka9510/js-util";
 import { SCEComponent } from "@nuka9510/simple-custom-element";
 
 export default class TestElement extends SCEComponent {
-  get action() { return {
-    'set-state': [
-      { event: 'click', callback: this.onSetStateClick }
-    ]
-  }; }
+  get action() {
+    return {
+      'set-state': [
+        { event: 'click', callback: this.onSetStateClick }
+      ]
+    };
+  }
 
   async init() {
     this.state = this.setState({ arg: 'arg1' });
