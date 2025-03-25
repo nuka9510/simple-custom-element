@@ -7,4 +7,5 @@ export default class Register {
   constructor() {
     this.element.forEach((...arg) => { customElements.define(arg[0].tagName, arg[0].element as any); });
   }
+
 }

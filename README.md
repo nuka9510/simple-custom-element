@@ -198,5 +198,5 @@ new TestResister();
 
 [github]: https://img.shields.io/badge/github-blue.svg?style=flat&logo=github
 [github-url]: https://github.com/nuka9510/simple-custom-element
-[npm]: https://img.shields.io/badge/npm-1.0.0-blue.svg?style=flat&logo=nodedotjs
+[npm]: https://img.shields.io/badge/npm-1.0.1-blue.svg?style=flat&logo=nodedotjs
 [npm-url]: https://www.npmjs.com/package/@nuka9510/simple-custom-element

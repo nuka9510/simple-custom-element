@@ -369,12 +369,12 @@ export default class Component extends HTMLElement {
    * #data-sce-max 최대값
    * optional
    * 
-   * #data-sce-type  
-   * `A`: 숫자만 허용  
-   * `B`: 소숫점 및 음수 허용  
-   * `C`: #,###.# 형식으로 변환  
+   * #data-sce-type  \
+   * `A`: 숫자만 허용  \
+   * `B`: 소숫점 및 음수 허용  \
+   * `C`: #,###.# 형식으로 변환
    * 
-   * #data-sce-decimals 소숫점 아래 자리 수  
+   * #data-sce-decimals 소숫점 아래 자리 수  \
    * defalut: `0`
    */
   #numberOnly(
