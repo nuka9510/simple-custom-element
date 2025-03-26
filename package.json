@@ -1,6 +1,6 @@
 {
   "name": "@nuka9510/simple-custom-element",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "simple custom element util for web front-end",
   "main": "dist/index.js",
   "directories": {
@@ -15,8 +15,10 @@
   },
   "keywords": [
     "web",
+    "module",
     "front-end",
     "util",
+    "web-component",
     "custom-element"
   ],
   "author": "nuka9510",
@@ -26,6 +28,6 @@
   },
   "homepage": "https://github.com/nuka9510/simple-custom-element",
   "dependencies": {
-    "@nuka9510/js-util": "^1.0.21"
+    "@nuka9510/js-util": "^1.0.23"
   }
 }
