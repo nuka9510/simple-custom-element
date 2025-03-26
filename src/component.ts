@@ -1,9 +1,9 @@
 import { JUtil } from "@nuka9510/js-util";
-import { action, NumberOnlyElement, root } from "../@types/component"
-import { plugin } from "../@types/plugin"
-import Context from "./context";
-import Plugin from "./plugin";
-import State from "./state";
+import { action, NumberOnlyElement, root } from "../@types/component.js"
+import { plugin } from "../@types/plugin.js"
+import Context from "./context.js";
+import Plugin from "./plugin.js";
+import State from "./state.js";
 
 export default class Component extends HTMLElement {
   /** `Component`에 사용할 `plugin` 배열 객체 */

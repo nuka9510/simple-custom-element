@@ -380,7 +380,7 @@ export default class Util {
         }
     }
     /**
-     * `s_num` <= x <= `e_num` 범위의 배열을 반환한다.
+     * `sNum` <= x <= `eNum` 범위의 배열을 반환한다.
      */
     static numRange(
     /** 시작 값 */ sNum, 

@@ -1,4 +1,4 @@
-import Component from "./component";
+import Component from "./component.js";
 export default class Context {
     #private;
     /** `Component`의 `root`로 사용할 `Component`를 `root`설정을 위한 배열에 담는다.  */

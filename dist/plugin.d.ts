@@ -1,4 +1,4 @@
-import { plugin } from "../@types/plugin";
+import { plugin } from "../@types/plugin.js";
 export default class Plugin {
     #private;
     /** `SceComponent`에 사용할 `plugin` 배열 객체 */

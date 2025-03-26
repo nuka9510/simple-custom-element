@@ -1,5 +1,5 @@
-import { action, root } from "../@types/component";
-import State from "./state";
+import { action, root } from "../@types/component.js";
+import State from "./state.js";
 export default class Component extends HTMLElement {
     #private;
     /** `EventListener`에 할당 할 `data-sce-action`을 정의한 `action` */

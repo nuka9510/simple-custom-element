@@ -1,2 +1,2 @@
-import Util from "./util";
+import Util from "./util.js";
 export { Util as JUtil };

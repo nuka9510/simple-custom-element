@@ -1,4 +1,4 @@
-import Component from "./component";
-import Plugin from "./plugin";
-import Register from "./register";
+import Component from "./component.js";
+import Plugin from "./plugin.js";
+import Register from "./register.js";
 export { Component as SCEComponent, Plugin as SCEPlugin, Register as SCERegister };
