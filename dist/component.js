@@ -353,7 +353,6 @@ export default class Component extends HTMLElement {
                 flag = true;
             }
             if (flag) {
-                /** @type {string} */
                 let _value;
                 if (type == 'C') {
                     _value = JUtil.numberFormat(num, parseInt(node.dataset['sceDecimal'] ?? '0'));
