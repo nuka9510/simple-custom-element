@@ -1,6 +1,6 @@
 {
   "name": "@nuka9510/simple-custom-element",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "simple custom element util for web front-end",
   "main": "dist/index.js",
   "directories": {

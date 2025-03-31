@@ -1,7 +1,7 @@
 import { JUtil } from "@nuka9510/js-util";
 import { SCEComponent } from "@nuka9510/simple-custom-element";
 
-export default class TestElement extends SCEComponent {
+export default class TestComponent extends SCEComponent {
   get action() {
     return {
       'set-state': [

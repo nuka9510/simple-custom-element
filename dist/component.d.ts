@@ -10,6 +10,46 @@ export default class Component extends HTMLElement {
     get root(): root;
     /** `Component`의 `attributeChangedCallback`를 실행하기 위해 추척할 `attributes` */
     static get observedAttributes(): string[];
+    /**
+     * `custom-element`를 위한 `Component`객체
+     *
+     * ```
+     * <html>
+     *   <body>
+     *     <test-component> </test-component>
+     *   </body>
+     *   <script type="importmap">
+     *     {
+     *       "imports": {
+     *         "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util/dist/index.js",
+     *         "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/index.js"
+     *       }
+     *     }
+     *   </script>
+     *   <script type="module">
+     *     import { SCEComponent, SCERegister } from "@nuka9510/simple-custom-element";
+     *
+     *     class TestComponent extends SCEComponent {
+     *       render() {
+     *         return `<div> test </div>`;
+     *       }
+     *
+     *     }
+     *
+     *     class TestRegister extends SCERegister {
+     *       get element() {
+     *         return [
+     *           { tagName: 'test-component', element: TestComponent }
+     *         ];
+     *       }
+     *
+     *     }
+     *
+     *     new TestRegister();
+     *   </script>
+     * </html>
+     * ```
+     */
     constructor();
     /** `Component`가 할당 될 때 실행한다.  */
     init(): Promise<void>;

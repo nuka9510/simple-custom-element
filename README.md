@@ -87,19 +87,19 @@ or
 example
 ├── js
 │  ├── component
-│  │  └── test-element.js
+│  │  └── test-component.js
 │  ├── register
 │  │  └── test-register.js
 │  └── index.js
 └── view
    └── index.html
 ```
-- `js/component/test-element.js`
+- `js/component/test-component.js`
 ```
 import { JUtil } from "@nuka9510/js-util";
 import { SCEComponent } from "@nuka9510/simple-custom-element";
 
-export default class TestElement extends SCEComponent {
+export default class TestComponent extends SCEComponent {
   get action() {
     return {
       'set-state': [
@@ -170,12 +170,12 @@ export default class TestElement extends SCEComponent {
 - `js/register/test-register.js`
 ```
 import { SCERegister } from "@nuka9510/simple-custom-element";
-import TestElement from "../component/test-element.js";
+import TestComponent from "../component/test-component.js";
 
 export default class TestResister extends SCERegister {
   get element() {
     return [
-      { tagName: 'test-element', element: TestElement }
+      { tagName: 'test-component', element: TestComponent }
     ];
   }
 
@@ -197,7 +197,7 @@ new TestResister();
   <title>Document</title>
 </head>
 <body>
-  <test-element>
+  <test-component>
     <script type="application/json" data-sce-arg="arg1">
       {
         "list": [
@@ -234,7 +234,7 @@ new TestResister();
         ]
       }
     </script>
-  </test-element>
+  </test-component>
 </body>
 <script type="importmap">
   {
