@@ -1,6 +1,6 @@
+import { action, NumberOnlyElement, root } from "../@types/component"
+import { plugin } from "../@types/plugin"
 import { JUtil } from "@nuka9510/js-util";
-import { action, NumberOnlyElement, root } from "../@types/component.js"
-import { plugin } from "../@types/plugin.js"
 import Context from "./context.js";
 import Plugin from "./plugin.js";
 import State from "./state.js";

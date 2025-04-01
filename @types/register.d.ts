@@ -1,11 +1,6 @@
-import Component from "../src/component";
+import Component from "../src/component.js";
 
-export = register;
-export as namespace register;
-
-declare namespace register {
-  interface element {
-    tagName: string;
-    element: Component;
-  }
+export interface element {
+  tagName: string;
+  element: Component;
 }

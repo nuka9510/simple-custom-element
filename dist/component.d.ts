@@ -1,4 +1,4 @@
-import { action, root } from "../@types/component.js";
+import { action, root } from "../@types/component";
 import State from "./state.js";
 export default class Component extends HTMLElement {
     #private;

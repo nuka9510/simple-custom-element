@@ -3,11 +3,11 @@
   "version": "1.0.4",
   "description": "simple custom element util for web front-end",
   "main": "dist/index.js",
-  "directories": {
-    "example": "example"
-  },
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -r -f dist && tsc",
+    "postversion": "git push && git push --tag && npm publish --access=public"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,6 @@
   },
   "homepage": "https://github.com/nuka9510/simple-custom-element",
   "dependencies": {
-    "@nuka9510/js-util": "^1.0.23"
+    "@nuka9510/js-util": "^1.0.25"
   }
 }
