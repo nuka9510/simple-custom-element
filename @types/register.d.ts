@@ -1,4 +1,4 @@
-import Component from "../src/component.js";
+import Component from "../src/component.mjs";
 
 export interface element {
   tagName: string;

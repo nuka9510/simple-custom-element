@@ -38,24 +38,38 @@
 npm i @nuka9510/simple-custom-element
 ```
 ## Usage
-### npm
+### js (> 1.1.0)
+#### cdn
+```
+<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/index.min.js"> </script>
+```
+or
+```
+<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@latest/dist/index.min.js"> </script>
+```
+or
+```
+<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@<specific-version>/dist/index.min.js"> </script>
+```
+### module
+#### npm
 ```
 <script type="importmap">
   {
     "imports": {
-      "@nuka9510/js-util": "<path>/node_modules/@nuka9510/js-util/dist/index.js",
-      "@nuka9510/simple-custom-element": "<path>/node_modules/@nuka9510/simple-custom-element/dist/index.js"
+      "@nuka9510/js-util": "<path>/node_modules/@nuka9510/js-util/dist/index.mjs",
+      "@nuka9510/simple-custom-element": "<path>/node_modules/@nuka9510/simple-custom-element/dist/index.mjs"
     }
   }
 </script>
 ```
-### cdn
+#### cdn
 ```
 <script type="importmap">
   {
     "imports": {
-      "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util/dist/index.js",
-      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/index.js"
+      "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util/dist/index.mjs",
+      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/index.mjs"
     }
   }
 </script>
@@ -65,8 +79,8 @@ or
 <script type="importmap">
   {
     "imports": {
-      "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util@latest/dist/index.js",
-      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@latest/dist/index.js"
+      "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util@latest/dist/index.mjs",
+      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@latest/dist/index.mjs"
     }
   }
 </script>
@@ -76,8 +90,8 @@ or
 <script type="importmap">
   {
     "imports": {
-      "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util@<specific-version>/dist/index.js",
-      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@<specific-version>/dist/index.js"
+      "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util@<specific-version>/dist/index.mjs",
+      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@<specific-version>/dist/index.mjs"
     }
   }
 </script>
@@ -87,14 +101,14 @@ or
 example
 ├── js
 │  ├── component
-│  │  └── test-component.js
+│  │  └── test-component.mjs
 │  ├── register
-│  │  └── test-register.js
-│  └── index.js
+│  │  └── test-register.mjs
+│  └── index.mjs
 └── view
    └── index.html
 ```
-- `js/component/test-component.js`
+- `js/component/test-component.mjs`
 ```
 import { JUtil } from "@nuka9510/js-util";
 import { SCEComponent } from "@nuka9510/simple-custom-element";
@@ -167,10 +181,10 @@ export default class TestComponent extends SCEComponent {
 
 }
 ```
-- `js/register/test-register.js`
+- `js/register/test-register.mjs`
 ```
 import { SCERegister } from "@nuka9510/simple-custom-element";
-import TestComponent from "../component/test-component.js";
+import TestComponent from "../component/test-component.mjs";
 
 export default class TestResister extends SCERegister {
   get element() {
@@ -181,9 +195,9 @@ export default class TestResister extends SCERegister {
 
 }
 ```
-- `js/index.js`
+- `js/index.mjs`
 ```
-import TestResister from "./register/test-register.js";
+import TestResister from "./register/test-register.mjs";
 
 new TestResister();
 ```
@@ -239,11 +253,11 @@ new TestResister();
 <script type="importmap">
   {
     "imports": {
-      "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util/dist/index.js",
-      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/index.js"
+      "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util/dist/index.mjs",
+      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/index.mjs"
     }
   }
 </script>
-<script src="../js/index.js" type="module"></script>
+<script src="../js/index.mjs" type="module"></script>
 </html>
 ```

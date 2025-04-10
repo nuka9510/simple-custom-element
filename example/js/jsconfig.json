@@ -9,8 +9,8 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "target": "ESNext",
     "paths": {
-      "@nuka9510/js-util": [ "../../node_modules/@nuka9510/js-util/dist/index.js" ],
-      "@nuka9510/simple-custom-element": [ "../../dist/index.js" ]
+      "@nuka9510/js-util": [ "../../node_modules/@nuka9510/js-util/dist/index.mjs" ],
+      "@nuka9510/simple-custom-element": [ "../../dist/index.mjs" ]
     }
   }
 }

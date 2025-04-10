@@ -1,5 +1,5 @@
 import { action } from "./component";
-import Component from "../src/component.js";
+import Component from "../src/component.mjs";
 
 interface _plugin {
   action: action;
