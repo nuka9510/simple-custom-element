@@ -1,3 +1,4 @@
+var simpleCustomElement;
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ([
@@ -1085,13 +1086,16 @@ var __webpack_exports__ = {};
 (() => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SCEComponent: () => (/* reexport safe */ _component_mjs__WEBPACK_IMPORTED_MODULE_0__["default"]),
-/* harmony export */   SCEPlugin: () => (/* reexport safe */ _plugin_mjs__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   SCERegister: () => (/* reexport safe */ _register_mjs__WEBPACK_IMPORTED_MODULE_2__["default"])
+/* harmony export */   Component: () => (/* reexport safe */ _component_mjs__WEBPACK_IMPORTED_MODULE_0__["default"]),
+/* harmony export */   JUtil: () => (/* reexport safe */ _nuka9510_js_util__WEBPACK_IMPORTED_MODULE_3__.JUtil),
+/* harmony export */   Plugin: () => (/* reexport safe */ _plugin_mjs__WEBPACK_IMPORTED_MODULE_1__["default"]),
+/* harmony export */   Register: () => (/* reexport safe */ _register_mjs__WEBPACK_IMPORTED_MODULE_2__["default"])
 /* harmony export */ });
 /* harmony import */ var _component_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _plugin_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
 /* harmony import */ var _register_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
+/* harmony import */ var _nuka9510_js_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
+
 
 
 
@@ -1099,8 +1103,6 @@ __webpack_require__.r(__webpack_exports__);
 
 })();
 
-var __webpack_export_target__ = exports;
-for(var __webpack_i__ in __webpack_exports__) __webpack_export_target__[__webpack_i__] = __webpack_exports__[__webpack_i__];
-if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
+simpleCustomElement = __webpack_exports__;
 /******/ })()
 ;

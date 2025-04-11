@@ -32,64 +32,32 @@
 
 [top-language]: https://img.shields.io/github/languages/top/nuka9510/simple-custom-element
 
-# simple-custom-element
-## Installation
+## Usage
+### js (> 1.1.2)
+```
+<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/index.min.js"> </script>
+  OR
+<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@latest/dist/index.min.js"> </script>
+  OR
+<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@<specific-version>/dist/index.min.js"> </script>
+```
+### mjs
 ```
 npm i @nuka9510/simple-custom-element
 ```
-## Usage
-### js (> 1.1.0)
-#### cdn
-```
-<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/index.min.js"> </script>
-```
-or
-```
-<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@latest/dist/index.min.js"> </script>
-```
-or
-```
-<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@<specific-version>/dist/index.min.js"> </script>
-```
-### module
-#### npm
 ```
 <script type="importmap">
   {
     "imports": {
       "@nuka9510/js-util": "<path>/node_modules/@nuka9510/js-util/dist/index.mjs",
       "@nuka9510/simple-custom-element": "<path>/node_modules/@nuka9510/simple-custom-element/dist/index.mjs"
-    }
-  }
-</script>
-```
-#### cdn
-```
-<script type="importmap">
-  {
-    "imports": {
+        OR
       "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util/dist/index.mjs",
       "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/index.mjs"
-    }
-  }
-</script>
-```
-or
-```
-<script type="importmap">
-  {
-    "imports": {
+        OR
       "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util@latest/dist/index.mjs",
       "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@latest/dist/index.mjs"
-    }
-  }
-</script>
-```
-or
-```
-<script type="importmap">
-  {
-    "imports": {
+        OR
       "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util@<specific-version>/dist/index.mjs",
       "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@<specific-version>/dist/index.mjs"
     }
