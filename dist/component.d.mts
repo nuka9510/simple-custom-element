@@ -8,6 +8,7 @@ export default class Component extends HTMLElement {
     get isLoaded(): boolean;
     /** 현재 `Component`를 호출 한 `Document` 또는 `Component` 객체 */
     get root(): root;
+    get css(): string;
     /** `Component`의 `attributeChangedCallback`를 실행하기 위해 추척할 `attributes` */
     static get observedAttributes(): string[];
     /**

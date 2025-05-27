@@ -10,6 +10,14 @@ export default class TestComponent extends SCEComponent {
     };
   }
 
+  get css() {
+    return `
+      table { border-collapse: collapse; }
+      :is(th, td) { border: 1px solid #000000; }
+      td { text-align: center; }
+    `;
+  }
+
   async init() {
     this.attachShadow({ mode: 'open' });
 
@@ -26,7 +34,7 @@ export default class TestComponent extends SCEComponent {
     const state = this.state.get();
 
     return `
-      <table style="border-collapse: collapse;">
+      <table>
         <colgroup>
           <col style="width: 80px;">
           <col style="width: 80px;">
@@ -37,12 +45,12 @@ export default class TestComponent extends SCEComponent {
         </colgroup>
         <thead>
           <tr>
-            <th style="border: 1px solid #000000"> num </th>
-            <th style="border: 1px solid #000000"> num * 2 </th>
-            <th style="border: 1px solid #000000"> num ** 2 </th>
-            <th style="border: 1px solid #000000"> (num / (num * 2)) * 100 </th>
-            <th style="border: 1px solid #000000"> (num / (num ** 2)) * 100 </th>
-            <th style="border: 1px solid #000000"> ((num * 2) / (num ** 2)) * 100 </th>
+            <th> num </th>
+            <th> num * 2 </th>
+            <th> num ** 2 </th>
+            <th> (num / (num * 2)) * 100 </th>
+            <th> (num / (num ** 2)) * 100 </th>
+            <th> ((num * 2) / (num ** 2)) * 100 </th>
           </tr>
         </thead>
         <tbody>
@@ -51,12 +59,12 @@ export default class TestComponent extends SCEComponent {
               (...arg) => `
                 ${ arg[0] }
                 <tr>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${ arg[1].num } </td>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${ arg[1].num * 2 } </td>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${ arg[1].num ** 2 } </td>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${ JUtil.numberFormat((arg[1].num / (arg[1].num * 2)) * 100, 3) } </td>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${ JUtil.numberFormat((arg[1].num / (arg[1].num ** 2)) * 100, 3) } </td>
-                  <td style="text-align: center; border: 1px solid #000000;"> ${ JUtil.numberFormat(((arg[1].num * 2) / (arg[1].num ** 2)) * 100, 3) } </td>
+                  <td> ${ arg[1].num } </td>
+                  <td> ${ arg[1].num * 2 } </td>
+                  <td> ${ arg[1].num ** 2 } </td>
+                  <td> ${ JUtil.numberFormat((arg[1].num / (arg[1].num * 2)) * 100, 3) } </td>
+                  <td> ${ JUtil.numberFormat((arg[1].num / (arg[1].num ** 2)) * 100, 3) } </td>
+                  <td> ${ JUtil.numberFormat(((arg[1].num * 2) / (arg[1].num ** 2)) * 100, 3) } </td>
                 </tr>
               `, ''
             )

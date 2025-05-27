@@ -44,6 +44,7 @@ export default class Component extends HTMLElement {
     get isLoaded() { return this.#isLoaded; }
     /** 현재 `Component`를 호출 한 `Document` 또는 `Component` 객체 */
     get root() { return this.#root; }
+    get css() { return ''; }
     /** `Component`의 `attributeChangedCallback`를 실행하기 위해 추척할 `attributes` */
     static get observedAttributes() { return []; }
     /**
@@ -134,10 +135,18 @@ export default class Component extends HTMLElement {
             }
         });
         root.innerHTML = null;
+        this.#setCss();
         root.appendChild(node);
         this.#addEvent();
         this.#plugin.forEach((...arg) => { arg[0].plugin.afterRender(root); });
         this.afterRender();
+    }
+    #setCss() {
+        if (this.shadowRoot) {
+            const style = document.createElement('style');
+            style.textContent = this.css;
+            this.shadowRoot.appendChild(style);
+        }
     }
     /** `Component`가 제거될 때 혹은 `state`가 변경되어 다시 `rendering`을 하기 이전에 실행할 `callback` */
     destroy() { }
