@@ -124,26 +124,28 @@ export default class Component extends HTMLElement {
     render() { }
     /** 화면을 `render`한다.  */
     #render() {
+        const root = (this.shadowRoot ?? this);
         let node;
         this.#template.innerHTML = this.render() ?? '';
         node = this.#template.content.cloneNode(true);
         node.querySelectorAll('*').forEach((...arg) => {
             if (customElements.get(arg[0].localName)) {
-                Context.setRoot(arg[0], this);
+                Context.setRoot(arg[0], root);
             }
         });
-        this.innerHTML = null;
-        this.appendChild(node);
+        root.innerHTML = null;
+        root.appendChild(node);
         this.#addEvent();
-        this.#plugin.forEach((...arg) => { arg[0].plugin.afterRender(this); });
+        this.#plugin.forEach((...arg) => { arg[0].plugin.afterRender(root); });
         this.afterRender();
     }
     /** `Component`가 제거될 때 혹은 `state`가 변경되어 다시 `rendering`을 하기 이전에 실행할 `callback` */
     destroy() { }
     /** `Component`가 제거될 때 혹은 `state`가 변경되어 다시 `rendering`을 하기 이전에 실행할 `callback` */
     #destroy() {
+        const root = (this.shadowRoot ?? this);
         this.destroy();
-        this.#plugin.forEach((...arg) => { arg[0].plugin.destroy(this); });
+        this.#plugin.forEach((...arg) => { arg[0].plugin.destroy(root); });
         this.#removeEvent();
     }
     /** `arg`를 `state`로 갖는 `State`객체를 반환한다.  */
@@ -183,8 +185,9 @@ export default class Component extends HTMLElement {
     updateAttribute(target, oldValue, newValue) { }
     /** `Component`에 정의한 `eventListener`들을 `add`한다.  */
     #addEvent() {
+        const root = (this.shadowRoot ?? this);
         for (const action in this.#_action) {
-            this.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((...arg) => {
+            root.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((...arg) => {
                 this.#_action[action].forEach((..._arg) => {
                     if (JUtil.empty(_arg[0].event)) {
                         arg[0].dataset['sceEvent']?.split(' ').forEach((...__arg) => {
@@ -202,8 +205,9 @@ export default class Component extends HTMLElement {
     }
     /** `Component`에 정의한 `eventListener`들을 `remove`한다.  */
     #removeEvent() {
+        const root = (this.shadowRoot ?? this);
         for (const action in this.#_action) {
-            this.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((...arg) => {
+            root.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((...arg) => {
                 this.#_action[action].forEach((..._arg) => {
                     if (JUtil.empty(_arg[0].event)) {
                         arg[0].dataset['sceEvent']?.split(' ').forEach((...__arg) => {
@@ -256,7 +260,7 @@ export default class Component extends HTMLElement {
      * ```
      */
     #subSelect(ev) {
-        const node = ev.currentTarget, subSelect = this.querySelectorAll(`select[data-sce-name="${node.dataset['sceTarget']}"]`);
+        const root = (this.shadowRoot ?? this), node = ev.currentTarget, subSelect = root.querySelectorAll(`select[data-sce-name="${node.dataset['sceTarget']}"]`);
         subSelect.forEach(async (...arg) => {
             arg[0].querySelectorAll('option').forEach((..._arg) => {
                 if (!JUtil.empty(_arg[0].value)) {
@@ -278,8 +282,8 @@ export default class Component extends HTMLElement {
      * ```
      */
     async #checkAll(ev) {
-        const node = ev.currentTarget;
-        this.querySelectorAll(`input[type="checkbox"][data-sce-name='${node.dataset['sceTarget']}']`).forEach((...arg) => { arg[0].checked = node.checked; });
+        const root = (this.shadowRoot ?? this), node = ev.currentTarget;
+        root.querySelectorAll(`input[type="checkbox"][data-sce-name='${node.dataset['sceTarget']}']`).forEach((...arg) => { arg[0].checked = node.checked; });
         await this.afterCheckAll(ev);
     }
     #numberOnlyKeydown(ev) {
@@ -420,7 +424,7 @@ export default class Component extends HTMLElement {
      * ```
      */
     async #check(ev) {
-        const node = ev.currentTarget, target = this.querySelector(`input[data-sce-name="${node.dataset['sceTarget']}"]`);
+        const root = (this.shadowRoot ?? this), node = ev.currentTarget, target = root.querySelector(`input[data-sce-name="${node.dataset['sceTarget']}"]`);
         target.value = node.checked ? target.dataset['sceTrue'] : target.dataset['sceFalse'];
         await this.afterCheck(ev);
     }

@@ -222,7 +222,7 @@ new TestResister();
   {
     "imports": {
       "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util/dist/index.mjs",
-      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/index.mjs"
+      "@nuka9510/simple-custom-element": "../../dist/index.mjs"
     }
   }
 </script>

@@ -3,11 +3,11 @@ import Component from "../src/component.mjs";
 
 interface _plugin {
   action: action;
-  afterRender: (el: Component) => void;
-  destroy: (el: Component) => void;
+  afterRender: (el: Component | ShadowRoot) => void;
+  destroy: (el: Component | ShadowRoot) => void;
 }
 
 export interface plugin {
-  target?: Component[] | null;
+  target?: (Component | ShadowRoot)[] | null;
   plugin: _plugin;
 }

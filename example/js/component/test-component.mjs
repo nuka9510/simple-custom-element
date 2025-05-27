@@ -11,6 +11,8 @@ export default class TestComponent extends SCEComponent {
   }
 
   async init() {
+    this.attachShadow({ mode: 'open' });
+
     this.state = this.setState({ arg: 'arg1' });
   }
 
