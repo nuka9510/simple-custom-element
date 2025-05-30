@@ -30,6 +30,8 @@ export default class TestComponent extends SCEComponent {
     this.state.set('arg', node.dataset.sceValue);
   }
 
+  eventInit() { console.debug('eventInit'); }
+
   render() {
     const state = this.state.get();
 

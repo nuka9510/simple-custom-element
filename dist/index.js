@@ -105,6 +105,15 @@ class Component extends HTMLElement {
      */
     constructor() {
         super();
+        const eventInit = this.eventInit.bind(this), eventDestroy = this.eventDestroy.bind(this);
+        this.eventInit = () => {
+            this.#eventInit();
+            eventInit();
+        };
+        this.eventDestroy = () => {
+            this.#eventDestroy();
+            eventDestroy();
+        };
         this.#plugin = _plugin_mjs__WEBPACK_IMPORTED_MODULE_2__["default"].plugin.filter((...arg) => _nuka9510_js_util__WEBPACK_IMPORTED_MODULE_0__.JUtil.empty(arg[0].target) ||
             arg[0].target.includes(this));
         this.#isLoaded = false;
@@ -133,13 +142,13 @@ class Component extends HTMLElement {
         }
         _context_mjs__WEBPACK_IMPORTED_MODULE_1__["default"].popRoot(this);
     }
-    /** `Component`가 할당 될 때 실행한다.  */
+    /** `Component`가 할당 될 때 실행한다. */
     async init() { }
     /** `rendering`이후 실행 할 `callback` */
     afterRender() { }
-    /** 화면에 `render`할 html 문자열을 반환한다.  */
+    /** 화면에 `render`할 html 문자열을 반환한다. */
     render() { }
-    /** 화면을 `render`한다.  */
+    /** 화면을 `render`한다. */
     #render() {
         const root = (this.shadowRoot ?? this);
         let node;
@@ -153,7 +162,7 @@ class Component extends HTMLElement {
         root.innerHTML = null;
         this.#setCss();
         root.appendChild(node);
-        this.#addEvent();
+        this.eventInit();
         this.#plugin.forEach((...arg) => { arg[0].plugin.afterRender(root); });
         this.afterRender();
     }
@@ -171,16 +180,16 @@ class Component extends HTMLElement {
         const root = (this.shadowRoot ?? this);
         this.destroy();
         this.#plugin.forEach((...arg) => { arg[0].plugin.destroy(root); });
-        this.#removeEvent();
+        this.eventDestroy();
     }
-    /** `arg`를 `state`로 갖는 `State`객체를 반환한다.  */
+    /** `arg`를 `state`로 갖는 `State`객체를 반환한다. */
     setState(state) {
         return new _state_mjs__WEBPACK_IMPORTED_MODULE_3__["default"](state, () => {
             this.#destroy();
             this.#render();
         });
     }
-    /** 현재 페이지의 `URLSearchParams`객체를 반환한다.  */
+    /** 현재 페이지의 `URLSearchParams`객체를 반환한다. */
     getParams() { return new URLSearchParams(location.search); }
     /** `Component`가 `connected`될 때 실행할 `callback` */
     connectedCallback() {
@@ -208,8 +217,10 @@ class Component extends HTMLElement {
     }
     /** `Component`의 `attributeChangedCallback`가 실행 될 때 실행 할 `callback` */
     updateAttribute(target, oldValue, newValue) { }
-    /** `Component`에 정의한 `eventListener`들을 `add`한다.  */
-    #addEvent() {
+    /** `Component`에 정의한 `eventListener`들을 `add`한다. */
+    eventInit() { }
+    /** `Component`에 정의한 `eventListener`들을 `add`한다. */
+    #eventInit() {
         const root = (this.shadowRoot ?? this);
         for (const action in this.#_action) {
             root.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((...arg) => {
@@ -228,8 +239,10 @@ class Component extends HTMLElement {
             });
         }
     }
-    /** `Component`에 정의한 `eventListener`들을 `remove`한다.  */
-    #removeEvent() {
+    /** `Component`에 정의한 `eventListener`들을 `remove`한다. */
+    eventDestroy() { }
+    /** `Component`에 정의한 `eventListener`들을 `remove`한다. */
+    #eventDestroy() {
         const root = (this.shadowRoot ?? this);
         for (const action in this.#_action) {
             root.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((...arg) => {

@@ -104,6 +104,19 @@ export default class Component extends HTMLElement {
   constructor() {
     super();
 
+    const eventInit = this.eventInit.bind(this),
+    eventDestroy = this.eventDestroy.bind(this);
+
+    this.eventInit = () => {
+      this.#eventInit();
+      eventInit();
+    }
+
+    this.eventDestroy = () => {
+      this.#eventDestroy();
+      eventDestroy();
+    }
+
     this.#plugin = Plugin.plugin.filter(
       (...arg) => JUtil.empty(arg[0].target) ||
                   arg[0].target.includes(this)
@@ -137,16 +150,16 @@ export default class Component extends HTMLElement {
     Context.popRoot(this);
   }
 
-  /** `Component`가 할당 될 때 실행한다.  */
+  /** `Component`가 할당 될 때 실행한다. */
   async init(): Promise<void> {}
 
   /** `rendering`이후 실행 할 `callback` */
   afterRender(): void {}
 
-  /** 화면에 `render`할 html 문자열을 반환한다.  */
+  /** 화면에 `render`할 html 문자열을 반환한다. */
   render(): string | void {}
 
-  /** 화면을 `render`한다.  */
+  /** 화면을 `render`한다. */
   #render(): void {
     const root = (this.shadowRoot ?? this);
 
@@ -163,7 +176,7 @@ export default class Component extends HTMLElement {
     root.innerHTML = null;
     this.#setCss();
     root.appendChild(node);
-    this.#addEvent();
+    this.eventInit();
     this.#plugin.forEach((...arg) => { arg[0].plugin.afterRender(root); });
     this.afterRender();
   }
@@ -187,10 +200,10 @@ export default class Component extends HTMLElement {
 
     this.destroy();
     this.#plugin.forEach((...arg) => { arg[0].plugin.destroy(root); });
-    this.#removeEvent();
+    this.eventDestroy();
   }
 
-  /** `arg`를 `state`로 갖는 `State`객체를 반환한다.  */
+  /** `arg`를 `state`로 갖는 `State`객체를 반환한다. */
   setState<T extends object>(state: T): State<T> {
     return new State(
       state,
@@ -201,7 +214,7 @@ export default class Component extends HTMLElement {
     );
   }
 
-  /** 현재 페이지의 `URLSearchParams`객체를 반환한다.  */
+  /** 현재 페이지의 `URLSearchParams`객체를 반환한다. */
   getParams(): URLSearchParams { return new URLSearchParams(location.search); }
 
   /** `Component`가 `connected`될 때 실행할 `callback` */
@@ -242,8 +255,11 @@ export default class Component extends HTMLElement {
     newValue: string
   ): void {}
 
-  /** `Component`에 정의한 `eventListener`들을 `add`한다.  */
-  #addEvent(): void {
+  /** `Component`에 정의한 `eventListener`들을 `add`한다. */
+  eventInit(): void {}
+
+  /** `Component`에 정의한 `eventListener`들을 `add`한다. */
+  #eventInit(): void {
     const root = (this.shadowRoot ?? this);
 
     for (const action in this.#_action) {
@@ -259,8 +275,11 @@ export default class Component extends HTMLElement {
     }
   }
 
-  /** `Component`에 정의한 `eventListener`들을 `remove`한다.  */
-  #removeEvent(): void {
+  /** `Component`에 정의한 `eventListener`들을 `remove`한다. */
+  eventDestroy(): void {}
+
+  /** `Component`에 정의한 `eventListener`들을 `remove`한다. */
+  #eventDestroy(): void {
     const root = (this.shadowRoot ?? this);
 
     for (const action in this.#_action) {

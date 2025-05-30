@@ -52,17 +52,17 @@ export default class Component extends HTMLElement {
      * ```
      */
     constructor();
-    /** `Component`가 할당 될 때 실행한다.  */
+    /** `Component`가 할당 될 때 실행한다. */
     init(): Promise<void>;
     /** `rendering`이후 실행 할 `callback` */
     afterRender(): void;
-    /** 화면에 `render`할 html 문자열을 반환한다.  */
+    /** 화면에 `render`할 html 문자열을 반환한다. */
     render(): string | void;
     /** `Component`가 제거될 때 혹은 `state`가 변경되어 다시 `rendering`을 하기 이전에 실행할 `callback` */
     destroy(): void;
-    /** `arg`를 `state`로 갖는 `State`객체를 반환한다.  */
+    /** `arg`를 `state`로 갖는 `State`객체를 반환한다. */
     setState<T extends object>(state: T): State<T>;
-    /** 현재 페이지의 `URLSearchParams`객체를 반환한다.  */
+    /** 현재 페이지의 `URLSearchParams`객체를 반환한다. */
     getParams(): URLSearchParams;
     /** `Component`가 `connected`될 때 실행할 `callback` */
     connectedCallback(): void;
@@ -74,6 +74,10 @@ export default class Component extends HTMLElement {
     attributeChangedCallback(target: string, oldValue: string, newValue: string): void;
     /** `Component`의 `attributeChangedCallback`가 실행 될 때 실행 할 `callback` */
     updateAttribute(target: string, oldValue: string, newValue: string): void;
+    /** `Component`에 정의한 `eventListener`들을 `add`한다. */
+    eventInit(): void;
+    /** `Component`에 정의한 `eventListener`들을 `remove`한다. */
+    eventDestroy(): void;
     /** `data-sce-action="sub-select"`이후 실행 할 `callback` */
     afterSubSelect(ev: Event): Promise<void>;
     /** `data-sce-action="check-all"`이후 실행 할 `callback` */
