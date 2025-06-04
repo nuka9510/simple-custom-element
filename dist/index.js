@@ -29,6 +29,10 @@ class Component extends HTMLElement {
     #root;
     /** `EventListener`에 할당 할 `data-sce-action`을 정의한 `action` */
     #_action;
+    /** `Component` `load` 여부 */
+    get isLoaded() { return this.#isLoaded; }
+    /** 현재 `Component`를 호출 한 `Document` 또는 `Component` 객체 */
+    get root() { return this.#root; }
     /** `EventListener`에 할당 할 `data-sce-action`을 정의한 `action` */
     get #action() {
         return {
@@ -56,11 +60,10 @@ class Component extends HTMLElement {
     }
     /** `EventListener`에 할당 할 `data-sce-action`을 정의한 `action` */
     get action() { return {}; }
-    /** `Component` `load` 여부 */
-    get isLoaded() { return this.#isLoaded; }
-    /** 현재 `Component`를 호출 한 `Document` 또는 `Component` 객체 */
-    get root() { return this.#root; }
+    /** `ShadowRoot`에 적용 할 `style`을 정의한 `css`문자열 */
     get css() { return ''; }
+    /** `html`을 `render`하는 `Component` 또는 `ShadowRoot` 객체 */
+    get el() { return this.shadowRoot ?? this; }
     /** `Component`의 `attributeChangedCallback`를 실행하기 위해 추척할 `attributes` */
     static get observedAttributes() { return []; }
     /**
@@ -150,20 +153,19 @@ class Component extends HTMLElement {
     render() { }
     /** 화면을 `render`한다. */
     #render() {
-        const root = (this.shadowRoot ?? this);
         let node;
         this.#template.innerHTML = this.render() ?? '';
         node = this.#template.content.cloneNode(true);
         node.querySelectorAll('*').forEach((...arg) => {
             if (customElements.get(arg[0].localName)) {
-                _context_mjs__WEBPACK_IMPORTED_MODULE_1__["default"].setRoot(arg[0], root);
+                _context_mjs__WEBPACK_IMPORTED_MODULE_1__["default"].setRoot(arg[0], this);
             }
         });
-        root.innerHTML = null;
+        this.el.innerHTML = null;
         this.#setCss();
-        root.appendChild(node);
+        this.el.appendChild(node);
         this.eventInit();
-        this.#plugin.forEach((...arg) => { arg[0].plugin.afterRender(root); });
+        this.#plugin.forEach((...arg) => { arg[0].plugin.afterRender(this); });
         this.afterRender();
     }
     #setCss() {
@@ -177,9 +179,8 @@ class Component extends HTMLElement {
     destroy() { }
     /** `Component`가 제거될 때 혹은 `state`가 변경되어 다시 `rendering`을 하기 이전에 실행할 `callback` */
     #destroy() {
-        const root = (this.shadowRoot ?? this);
         this.destroy();
-        this.#plugin.forEach((...arg) => { arg[0].plugin.destroy(root); });
+        this.#plugin.forEach((...arg) => { arg[0].plugin.destroy(this); });
         this.eventDestroy();
     }
     /** `arg`를 `state`로 갖는 `State`객체를 반환한다. */
@@ -221,9 +222,8 @@ class Component extends HTMLElement {
     eventInit() { }
     /** `Component`에 정의한 `eventListener`들을 `add`한다. */
     #eventInit() {
-        const root = (this.shadowRoot ?? this);
         for (const action in this.#_action) {
-            root.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((...arg) => {
+            this.el.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((...arg) => {
                 this.#_action[action].forEach((..._arg) => {
                     if (_nuka9510_js_util__WEBPACK_IMPORTED_MODULE_0__.JUtil.empty(_arg[0].event)) {
                         arg[0].dataset['sceEvent']?.split(' ').forEach((...__arg) => {
@@ -243,9 +243,8 @@ class Component extends HTMLElement {
     eventDestroy() { }
     /** `Component`에 정의한 `eventListener`들을 `remove`한다. */
     #eventDestroy() {
-        const root = (this.shadowRoot ?? this);
         for (const action in this.#_action) {
-            root.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((...arg) => {
+            this.el.querySelectorAll(`[data-sce-action~="${action}"]`).forEach((...arg) => {
                 this.#_action[action].forEach((..._arg) => {
                     if (_nuka9510_js_util__WEBPACK_IMPORTED_MODULE_0__.JUtil.empty(_arg[0].event)) {
                         arg[0].dataset['sceEvent']?.split(' ').forEach((...__arg) => {
@@ -298,7 +297,7 @@ class Component extends HTMLElement {
      * ```
      */
     #subSelect(ev) {
-        const root = (this.shadowRoot ?? this), node = ev.currentTarget, subSelect = root.querySelectorAll(`select[data-sce-name="${node.dataset['sceTarget']}"]`);
+        const node = ev.currentTarget, subSelect = this.el.querySelectorAll(`select[data-sce-name="${node.dataset['sceTarget']}"]`);
         subSelect.forEach(async (...arg) => {
             arg[0].querySelectorAll('option').forEach((..._arg) => {
                 if (!_nuka9510_js_util__WEBPACK_IMPORTED_MODULE_0__.JUtil.empty(_arg[0].value)) {
@@ -320,8 +319,8 @@ class Component extends HTMLElement {
      * ```
      */
     async #checkAll(ev) {
-        const root = (this.shadowRoot ?? this), node = ev.currentTarget;
-        root.querySelectorAll(`input[type="checkbox"][data-sce-name='${node.dataset['sceTarget']}']`).forEach((...arg) => { arg[0].checked = node.checked; });
+        const node = ev.currentTarget;
+        this.el.querySelectorAll(`input[type="checkbox"][data-sce-name='${node.dataset['sceTarget']}']`).forEach((...arg) => { arg[0].checked = node.checked; });
         await this.afterCheckAll(ev);
     }
     #numberOnlyKeydown(ev) {
@@ -462,7 +461,7 @@ class Component extends HTMLElement {
      * ```
      */
     async #check(ev) {
-        const root = (this.shadowRoot ?? this), node = ev.currentTarget, target = root.querySelector(`input[data-sce-name="${node.dataset['sceTarget']}"]`);
+        const node = ev.currentTarget, target = this.el.querySelector(`input[data-sce-name="${node.dataset['sceTarget']}"]`);
         target.value = node.checked ? target.dataset['sceTrue'] : target.dataset['sceFalse'];
         await this.afterCheck(ev);
     }

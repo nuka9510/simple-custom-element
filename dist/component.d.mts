@@ -2,13 +2,16 @@ import { action, root } from "../@types/component";
 import State from "./state.mjs";
 export default class Component extends HTMLElement {
     #private;
-    /** `EventListener`에 할당 할 `data-sce-action`을 정의한 `action` */
-    get action(): action;
     /** `Component` `load` 여부 */
     get isLoaded(): boolean;
     /** 현재 `Component`를 호출 한 `Document` 또는 `Component` 객체 */
     get root(): root;
+    /** `EventListener`에 할당 할 `data-sce-action`을 정의한 `action` */
+    get action(): action;
+    /** `ShadowRoot`에 적용 할 `style`을 정의한 `css`문자열 */
     get css(): string;
+    /** `html`을 `render`하는 `Component` 또는 `ShadowRoot` 객체 */
+    get el(): Component | ShadowRoot;
     /** `Component`의 `attributeChangedCallback`를 실행하기 위해 추척할 `attributes` */
     static get observedAttributes(): string[];
     /**

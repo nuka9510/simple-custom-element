@@ -82,7 +82,7 @@ export interface action {
   [data_sce_action: string]: actionCallback[];
 }
 
-export type root = Component | ShadowRoot | Document;
+export type root = Component | Document;
 
 export interface NumberOnlyElement extends HTMLInputElement {
   event_key_code: KeyboardEvent['keyCode'];
