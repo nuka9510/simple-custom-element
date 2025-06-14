@@ -50,15 +50,19 @@ npm i @nuka9510/simple-custom-element
   {
     "imports": {
       "@nuka9510/js-util": "<path>/node_modules/@nuka9510/js-util/dist/index.mjs",
+      "@nuka9510/simple-enum": "<path>/node_modules/@nuka9510/simple-enum/dist/index.mjs",
       "@nuka9510/simple-custom-element": "<path>/node_modules/@nuka9510/simple-custom-element/dist/index.mjs"
         OR
       "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util/dist/index.mjs",
+      "@nuka9510/simple-enum": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-enum/dist/index.mjs",
       "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/index.mjs"
         OR
       "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util@latest/dist/index.mjs",
+      "@nuka9510/simple-enum": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-enum@latest/dist/index.mjs",
       "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@latest/dist/index.mjs"
         OR
       "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util@<specific-version>/dist/index.mjs",
+      "@nuka9510/simple-enum": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-enum@<specific-version>/dist/index.mjs",
       "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@<specific-version>/dist/index.mjs"
     }
   }
@@ -222,6 +226,7 @@ new TestResister();
   {
     "imports": {
       "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util/dist/index.mjs",
+      "@nuka9510/simple-enum": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-enum/dist/index.mjs",
       "@nuka9510/simple-custom-element": "../../dist/index.mjs"
     }
   }
