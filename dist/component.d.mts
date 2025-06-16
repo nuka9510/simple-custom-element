@@ -86,6 +86,7 @@ export default class Component extends HTMLElement {
     afterSubSelect(ev: Event): Promise<void>;
     /** `data-sce-action="check-all"`이후 실행 할 `callback` */
     afterCheckAll(ev: MouseEvent): Promise<void>;
+    afterNumberOnly(ev: Event): Promise<void>;
     /** `data-sce-action="check"`이후 실행 할 `callback` */
     afterCheck(ev: MouseEvent): Promise<void>;
 }

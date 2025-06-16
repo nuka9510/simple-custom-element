@@ -338,7 +338,7 @@ class Component extends HTMLElement {
             delete node.prev_selection;
         }
     }
-    #numberOnlyInput(ev) {
+    async #numberOnlyInput(ev) {
         const node = ev.currentTarget;
         /** 한글 입력시 input 이벤트가 여러번 발생하는 현상 보정을 위한 로직 */
         if (node.event_key_code == 229) {
@@ -363,9 +363,10 @@ class Component extends HTMLElement {
                 node.selectionStart -= 1;
             }
         }
-        this.#numberOnly(ev);
+        await this.#numberOnly(ev);
     }
-    #numberOnlyBlur(ev) { this.#numberOnly(ev); }
+    async #numberOnlyBlur(ev) { await this.#numberOnly(ev); }
+    async afterNumberOnly(ev) { }
     /**
      * ```
      * <input type="text" data-sce-action="number-only" data-sce-type="A">
@@ -388,7 +389,7 @@ class Component extends HTMLElement {
      * #data-sce-decimals 소숫점 아래 자리 수  \
      * defalut: `0`
      */
-    #numberOnly(ev) {
+    async #numberOnly(ev) {
         const node = ev.currentTarget, type = node.dataset['sceType'] ?? 'A', min = node.dataset['sceMin'], max = node.dataset['sceMax'], regex = {
             A: /[^\d]/g,
             B: /[^\d\.\-]/g,
@@ -449,6 +450,7 @@ class Component extends HTMLElement {
         if (!_nuka9510_js_util__WEBPACK_IMPORTED_MODULE_0__.JUtil.empty(node.selectionEnd)) {
             node.selectionEnd = selection;
         }
+        await this.afterNumberOnly(ev);
     }
     /** `data-sce-action="check"`이후 실행 할 `callback` */
     async afterCheck(ev) { }

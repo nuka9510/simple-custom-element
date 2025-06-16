@@ -262,7 +262,7 @@ export default class Component extends HTMLElement {
   /** `Component`에 정의한 `eventListener`들을 `add`한다. */
   #eventInit(): void {
     for (const action in this.#_action) {
-      this.el.querySelectorAll<HTMLElement>(`[data-sce-action~="${action}"]`).forEach((...arg) => {
+      this.el.querySelectorAll<HTMLElement>(`[data-sce-action~="${ action }"]`).forEach((...arg) => {
         this.#_action[action].forEach((..._arg) => {
           if (JUtil.empty(_arg[0].event)) {
             arg[0].dataset['sceEvent']?.split(' ').forEach((...__arg) => {
@@ -280,7 +280,7 @@ export default class Component extends HTMLElement {
   /** `Component`에 정의한 `eventListener`들을 `remove`한다. */
   #eventDestroy(): void {
     for (const action in this.#_action) {
-      this.el.querySelectorAll<HTMLElement>(`[data-sce-action~="${action}"]`).forEach((...arg) => {
+      this.el.querySelectorAll<HTMLElement>(`[data-sce-action~="${ action }"]`).forEach((...arg) => {
         this.#_action[action].forEach((..._arg) => {
           if (JUtil.empty(_arg[0].event)) {
             arg[0].dataset['sceEvent']?.split(' ').forEach((...__arg) => {
@@ -395,9 +395,9 @@ export default class Component extends HTMLElement {
     }
   }
 
-  #numberOnlyInput(
+  async #numberOnlyInput(
     ev: InputEvent
-  ): void {
+  ): Promise<void> {
     const node = ev.currentTarget as NumberOnlyElement;
 
     /** 한글 입력시 input 이벤트가 여러번 발생하는 현상 보정을 위한 로직 */
@@ -425,12 +425,16 @@ export default class Component extends HTMLElement {
       ) { node.selectionStart -= 1; }
     }
 
-    this.#numberOnly(ev);
+    await this.#numberOnly(ev);
   }
 
-  #numberOnlyBlur(
+  async #numberOnlyBlur(
     ev: FocusEvent
-  ): void { this.#numberOnly(ev); }
+  ): Promise<void> { await this.#numberOnly(ev); }
+
+  async afterNumberOnly(
+    ev: Event
+  ): Promise<void> {}
 
   /**
    * ```
@@ -454,9 +458,9 @@ export default class Component extends HTMLElement {
    * #data-sce-decimals 소숫점 아래 자리 수  \
    * defalut: `0`
    */
-  #numberOnly(
+  async #numberOnly(
     ev: Event
-  ): void {
+  ): Promise<void> {
     const node = ev.currentTarget as NumberOnlyElement,
     type = node.dataset['sceType'] ?? 'A',
     min = node.dataset['sceMin'],
@@ -543,6 +547,8 @@ export default class Component extends HTMLElement {
     }
 
     if (!JUtil.empty(node.selectionEnd)) { node.selectionEnd = selection; }
+
+    await this.afterNumberOnly(ev);
   }
 
   /** `data-sce-action="check"`이후 실행 할 `callback` */
