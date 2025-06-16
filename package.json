@@ -35,6 +35,6 @@
   },
   "dependencies": {
     "@nuka9510/js-util": "^1.1.4",
-    "@nuka9510/simple-enum": "^1.0.3"
+    "@nuka9510/simple-enum": "^1.0.4"
   }
 }
