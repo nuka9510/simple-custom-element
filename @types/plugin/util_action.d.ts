@@ -3,20 +3,6 @@ import { action, actionItem } from "../component";
 export interface utilAction extends action {
   /**
    * ```
-   * <input type="radio" data-sce-action="prevent-default" data-sce-event="click">
-   * ```
-   * #data-sce-event - 이벤트 #separator: `' '`
-   */
-  'prevent-default': actionItem[];
-  /**
-   * ```
-   * <button type="button" data-sce-action="stop-propagation" data-sce-event="click"> 버튼 </button>
-   * ```
-   * #data-sce-event - 이벤트 #separator: `' '`
-   */
-  'stop-propagation': actionItem[];
-  /**
-   * ```
    * <select data-sce-action="sub-select" data-sce-target="[data-sce-name]">
    *   <option value="a">A</option>
    *   <option value="b">B</option>

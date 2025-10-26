@@ -47,7 +47,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class UtilAction {
-    // #component: Component;
     constructor(component) {
         if (_nuka9510_js_util__WEBPACK_IMPORTED_MODULE_0__.Util.empty(component)) {
             return;
@@ -57,22 +56,16 @@ class UtilAction {
                 ? component
                 : [component],
             action: {
-                'prevent-default': [
-                    { callback: this.#onPreventDefault }
-                ],
-                'stop-propagation': [
-                    { callback: this.#onStopPropagation }
-                ],
                 'sub-select': [
                     { event: 'change', callback: this.#onSubSelect }
                 ],
                 'check-all': [
-                    { event: 'click', callback: this.#onCheckAll, option: { capture: true } }
+                    { event: 'click', callback: this.#onCheckAll }
                 ],
                 'number-only': [
                     { event: 'keydown', callback: this.#onNumberOnlyKeydown },
                     { event: 'input', callback: this.#onNumberOnlyInput },
-                    { event: 'blur', callback: this.#onNumberOnlyBlur }
+                    { event: 'blur', callback: this.#onNumberOnlyBlur, option: { capture: true } }
                 ],
                 'check': [
                     { event: 'click', callback: this.#onCheck }
@@ -80,8 +73,6 @@ class UtilAction {
             }
         });
     }
-    #onPreventDefault(ev, target, component) { ev.preventDefault(); }
-    #onStopPropagation(ev, target, component) { ev.stopPropagation(); }
     #onSubSelect(ev, target, component) {
         const subNode = component.el.querySelectorAll(`select[data-sce-name="${target.dataset['sceTarget']}"]`);
         subNode.forEach(async (...arg) => {
