@@ -2,10 +2,42 @@
   "name": "@nuka9510/simple-custom-element",
   "version": "1.3.3",
   "description": "simple custom element util for web front-end",
-  "main": "dist/index.mjs",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/esm/index.min.mjs",
+      "require": "./dist/cjs/index.min.cjs"
+    },
+    "./plugin": {
+      "types": "./dist/plugin/index.d.ts",
+      "import": "./dist/esm/plugin/index.min.mjs",
+      "require": "./dist/cjs/plugin/index.min.cjs"
+    },
+    "./@types/component": {
+      "types": "./@types/component.d.ts"
+    },
+    "./@types/interceptor": {
+      "types": "./@types/interceptor.d.ts"
+    },
+    "./@types/plugin": {
+      "types": "./@types/plugin.d.ts"
+    },
+    "./@types/plugin/util_action": {
+      "types": "./@types/plugin/util_action.d.ts"
+    },
+    "./@types/register": {
+      "types": "./@types/register.d.ts"
+    }
+  },
+  "files": [
+    "@types",
+    "dist",
+    "src"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -r -f dist && tsc && webpack --config webpack.config.js",
+    "build": "rm -r -f dist && tsc && webpack --config webpack.config.cjs",
     "postversion": "git push && git push --tag && npm publish --access=public"
   },
   "repository": {
@@ -13,12 +45,16 @@
     "url": "git+https://github.com/nuka9510/simple-custom-element.git"
   },
   "keywords": [
-    "web",
-    "module",
-    "front-end",
     "util",
+    "web",
+    "front-end",
+    "custom-element",
     "web-component",
-    "custom-element"
+    "module",
+    "CommonJS",
+    "ES Module",
+    "cjs",
+    "esm"
   ],
   "author": "nuka9510",
   "license": "MIT",
@@ -34,7 +70,6 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "@nuka9510/js-util": "^1.1.4",
-    "@nuka9510/simple-enum": "^1.0.5"
+    "@nuka9510/js-util": "^1.2.5"
   }
 }

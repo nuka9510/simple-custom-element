@@ -1,7 +1,7 @@
-import { JUtil } from "@nuka9510/js-util";
-import { SCEComponent } from "@nuka9510/simple-custom-element";
+import { Util } from "@nuka9510/js-util";
+import { Component, Interceptor } from "@nuka9510/simple-custom-element";
 
-export default class TestComponent extends SCEComponent {
+export default class TestComponent extends Component {
   get action() {
     return {
       'set-state': [
@@ -18,19 +18,26 @@ export default class TestComponent extends SCEComponent {
     `;
   }
 
+  constructor() {
+    super();
+
+    Interceptor.append({
+      action: ['set-state'],
+      preHandle: (ev, target, component) => { console.debug('preHandle: set-state'); },
+      postHandle: (ev, target, component) => { console.debug('postHandle: set-state'); }
+    });
+  }
+
   async init() {
     this.attachShadow({ mode: 'open' });
 
     this.state = this.setState({ arg: 'arg1' });
   }
 
-  onSetStateClick(ev) {
-    const node = ev.currentTarget;
-
-    this.state.set('arg', node.dataset.sceValue);
+  onSetStateClick(ev, target, component) {
+    console.debug('onSetStateClick');
+    this.state.set('arg', target.dataset.sceValue);
   }
-
-  eventInit() { console.debug('eventInit'); }
 
   render() {
     const state = this.state.get();
@@ -64,9 +71,9 @@ export default class TestComponent extends SCEComponent {
                   <td> ${ arg[1].num } </td>
                   <td> ${ arg[1].num * 2 } </td>
                   <td> ${ arg[1].num ** 2 } </td>
-                  <td> ${ JUtil.numberFormat((arg[1].num / (arg[1].num * 2)) * 100, 3) } </td>
-                  <td> ${ JUtil.numberFormat((arg[1].num / (arg[1].num ** 2)) * 100, 3) } </td>
-                  <td> ${ JUtil.numberFormat(((arg[1].num * 2) / (arg[1].num ** 2)) * 100, 3) } </td>
+                  <td> ${ Util.numberFormat((arg[1].num / (arg[1].num * 2)) * 100, 3) } </td>
+                  <td> ${ Util.numberFormat((arg[1].num / (arg[1].num ** 2)) * 100, 3) } </td>
+                  <td> ${ Util.numberFormat(((arg[1].num * 2) / (arg[1].num ** 2)) * 100, 3) } </td>
                 </tr>
               `, ''
             )

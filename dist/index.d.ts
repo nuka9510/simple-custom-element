@@ -1,6 +1,5 @@
-import Component from "./component.mjs";
-import Plugin from "./plugin.mjs";
-import Register from "./register.mjs";
-import { JUtil } from "@nuka9510/js-util";
-import { SEnum } from "@nuka9510/simple-enum";
-export { Component, Plugin, Register, JUtil, SEnum };
+import Component from "./component.js";
+import Interceptor from "./interceptor.js";
+import Plugin from "./plugin.js";
+import Register from "./register.js";
+export { Component, Interceptor, Plugin, Register };

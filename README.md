@@ -32,41 +32,70 @@
 
 [top-language]: https://img.shields.io/github/languages/top/nuka9510/simple-custom-element
 
-## Usage
-### js (> 1.1.2)
-```
-<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/index.min.js"> </script>
-  OR
-<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@latest/dist/index.min.js"> </script>
-  OR
-<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@<specific-version>/dist/index.min.js"> </script>
-```
-### mjs
+## Install
 ```
 npm i @nuka9510/simple-custom-element
+```
+```
+<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/js/index.min.js"> </script>
+<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/js/plugin/index.min.js"> </script>
+```
+```
+<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@latest/dist/js/index.min.js"> </script>
+<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@latest/dist/js/plugin/index.min.js"> </script>
+```
+```
+<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@<specific-version>/dist/js/index.min.js"> </script>
+<script src="https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@<specific-version>/dist/js/plugin/index.min.js"> </script>
 ```
 ```
 <script type="importmap">
   {
     "imports": {
-      "@nuka9510/js-util": "<path>/node_modules/@nuka9510/js-util/dist/index.mjs",
-      "@nuka9510/simple-enum": "<path>/node_modules/@nuka9510/simple-enum/dist/index.mjs",
-      "@nuka9510/simple-custom-element": "<path>/node_modules/@nuka9510/simple-custom-element/dist/index.mjs"
-        OR
-      "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util/dist/index.mjs",
-      "@nuka9510/simple-enum": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-enum/dist/index.mjs",
-      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/index.mjs"
-        OR
-      "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util@latest/dist/index.mjs",
-      "@nuka9510/simple-enum": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-enum@latest/dist/index.mjs",
-      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@latest/dist/index.mjs"
-        OR
-      "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util@<specific-version>/dist/index.mjs",
-      "@nuka9510/simple-enum": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-enum@<specific-version>/dist/index.mjs",
-      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@<specific-version>/dist/index.mjs"
+      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/esm/index.min.mjs",
+      "@nuka9510/simple-custom-element/plugin": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/esm/plugin/index.min.mjs"
     }
   }
 </script>
+```
+```
+<script type="importmap">
+  {
+    "imports": {
+      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@latest/dist/esm/index.min.mjs",
+      "@nuka9510/simple-custom-element/plugin": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@latest/dist/esm/plugin/index.min.mjs"
+    }
+  }
+</script>
+```
+```
+<script type="importmap">
+  {
+    "imports": {
+      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@<specific-version>/dist/esm/index.mjs",
+      "@nuka9510/simple-custom-element/plugin": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element@<specific-version>/dist/esm/plugin/index.mjs"
+    }
+  }
+</script>
+```
+## Usage
+### js
+```
+simpleCustomElement.Component;
+simpleCustomElementPlugin.UtilAction;
+```
+### mjs
+```
+import { Component } from "@nuka9510/simple-custom-element";
+import { UtilAction } from "@nuka9510/simple-custom-element/plugin";
+```
+### cjs
+```
+const simpleCustomElement = require('@nuka9510/simple-custom-element'),
+simpleCustomElementPlugin = require('@nuka9510/simple-custom-element/plugin');
+
+simpleCustomElement.Component;
+simpleCustomElementPlugin.UtilAction;
 ```
 ### example
 ```
@@ -82,10 +111,10 @@ example
 ```
 - `js/component/test-component.mjs`
 ```
-import { JUtil } from "@nuka9510/js-util";
-import { SCEComponent } from "@nuka9510/simple-custom-element";
+import { Util } from "@nuka9510/js-util";
+import { Component, Interceptor } from "@nuka9510/simple-custom-element";
 
-export default class TestComponent extends SCEComponent {
+export default class TestComponent extends Component {
   get action() {
     return {
       'set-state': [
@@ -102,19 +131,26 @@ export default class TestComponent extends SCEComponent {
     `;
   }
 
+  constructor() {
+    super();
+
+    Interceptor.append({
+      action: ['set-state'],
+      preHandle: (ev, target, component) => { console.debug('preHandle: set-state'); },
+      postHandle: (ev, target, component) => { console.debug('postHandle: set-state'); }
+    });
+  }
+
   async init() {
     this.attachShadow({ mode: 'open' });
 
     this.state = this.setState({ arg: 'arg1' });
   }
 
-  onSetStateClick(ev) {
-    const node = ev.currentTarget;
-
-    this.state.set('arg', node.dataset.sceValue);
+  onSetStateClick(ev, target, component) {
+    console.debug('onSetStateClick');
+    this.state.set('arg', target.dataset.sceValue);
   }
-
-  eventInit() { console.debug('eventInit'); }
 
   render() {
     const state = this.state.get();
@@ -148,9 +184,9 @@ export default class TestComponent extends SCEComponent {
                   <td> ${ arg[1].num } </td>
                   <td> ${ arg[1].num * 2 } </td>
                   <td> ${ arg[1].num ** 2 } </td>
-                  <td> ${ JUtil.numberFormat((arg[1].num / (arg[1].num * 2)) * 100, 3) } </td>
-                  <td> ${ JUtil.numberFormat((arg[1].num / (arg[1].num ** 2)) * 100, 3) } </td>
-                  <td> ${ JUtil.numberFormat(((arg[1].num * 2) / (arg[1].num ** 2)) * 100, 3) } </td>
+                  <td> ${ Util.numberFormat((arg[1].num / (arg[1].num * 2)) * 100, 3) } </td>
+                  <td> ${ Util.numberFormat((arg[1].num / (arg[1].num ** 2)) * 100, 3) } </td>
+                  <td> ${ Util.numberFormat(((arg[1].num * 2) / (arg[1].num ** 2)) * 100, 3) } </td>
                 </tr>
               `, ''
             )
@@ -167,10 +203,10 @@ export default class TestComponent extends SCEComponent {
 ```
 - `js/register/test-register.mjs`
 ```
-import { SCERegister } from "@nuka9510/simple-custom-element";
+import { Register } from "@nuka9510/simple-custom-element";
 import TestComponent from "../component/test-component.mjs";
 
-export default class TestResister extends SCERegister {
+export default class TestResister extends Register {
   get element() {
     return [
       { tagName: 'test-component', element: TestComponent }
@@ -237,9 +273,8 @@ new TestResister();
 <script type="importmap">
   {
     "imports": {
-      "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util/dist/index.mjs",
-      "@nuka9510/simple-enum": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-enum/dist/index.mjs",
-      "@nuka9510/simple-custom-element": "../../dist/index.mjs"
+      "@nuka9510/js-util": "https://cdn.jsdelivr.net/npm/@nuka9510/js-util/dist/esm/index.min.mjs",
+      "@nuka9510/simple-custom-element": "https://cdn.jsdelivr.net/npm/@nuka9510/simple-custom-element/dist/esm/index.min.mjs"
     }
   }
 </script>
