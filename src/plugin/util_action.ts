@@ -1,93 +1,38 @@
-import { NumberOnlyElement } from "../../@types/plugin/util_action";
+import { NumberOnlyElement, plugin } from "../../@types/plugin/util_action";
+import { actionItem } from "../../@types/component";
 import { Util } from "@nuka9510/js-util";
 import Component from "../component.js";
-import Plugin from "../plugin.js";
-import { actionItem } from "../../@types/component";
 
 export default class UtilAction {
-  constructor(
+  static plugin(
     component: Component | Component[]
-  ) {
+  ): plugin {
     if (Util.empty(component)) { return; }
 
-    Plugin.append({
+    return {
       component: Array.isArray(component)
         ? component
         : [ component ],
       action: {
-        /**
-         * ```
-         * <select data-sce-action="sub-select" data-sce-target="[data-sce-name]">
-         *   <option value="a">A</option>
-         *   <option value="b">B</option>
-         * </select>
-         * <select data-sce-name="[data-sce-name]">
-         *   <option style="display: none" data-sce-main="a" value="1">1</option>
-         *   <option style="display: none" data-sce-main="a" value="2">2</option>
-         *   <option style="display: none" data-sce-main="a" value="3">3</option>
-         *   <option style="display: none" data-sce-main="b" value="4">4</option>
-         *   <option style="display: none" data-sce-main="b" value="5">5</option>
-         *   <option style="display: none" data-sce-main="b" value="6">6</option>
-         * </select>
-         * ```
-         */
         'sub-select': [
-          { event: 'change', callback: this.#onSubSelect as actionItem['callback'] }
+          { event: 'change', callback: UtilAction.#onSubSelect as actionItem['callback'] }
         ],
-        /**
-         * ```
-         * <input type="checkbox" data-sce-action="check-all" data-sce-target="[target-data-sce-name]">
-         * <input type="checkbox" data-sce-name="[target-data-sce-name]">
-         * <input type="checkbox" data-sce-name="[target-data-sce-name]">
-         * ```
-         */
         'check-all': [
-          { event: 'click', callback: this.#onCheckAll as actionItem['callback'] }
+          { event: 'click', callback: UtilAction.#onCheckAll as actionItem['callback'] }
         ],
-        /**
-         * ```
-         * <input type="text" data-sce-action="number-only" data-sce-type="A">
-         * <input type="text" data-sce-action="number-only" data-sce-type="A" data-sce-min="0" data-sce-max="100">
-         * <input type="text" data-sce-action="number-only" data-sce-type="B">
-         * <input type="text" data-sce-action="number-only" data-sce-type="C">
-         * <input type="text" data-sce-action="number-only" data-sce-type="C" data-sce-decimal="2">
-         * ```
-         * #data-sce-min 최소값
-         * optional
-         * 
-         * #data-sce-max 최대값
-         * optional
-         * 
-         * #data-sce-type  \
-         * `A`: 숫자만 허용  \
-         * `B`: 소숫점 및 음수 허용  \
-         * `C`: #,###.# 형식으로 변환
-         * 
-         * #data-sce-decimals 소숫점 아래 자리 수  \
-         * defalut: `0`
-         */
         'number-only': [
-          { event: 'keydown', callback: this.#onNumberOnlyKeydown as actionItem['callback'] },
-          { event: 'input', callback: this.#onNumberOnlyInput as actionItem['callback'] },
-          { event: 'blur', callback: this.#onNumberOnlyBlur as actionItem['callback'], option: { capture: true } }
+          { event: 'keydown', callback: UtilAction.#onNumberOnlyKeydown as actionItem['callback'] },
+          { event: 'input', callback: UtilAction.#onNumberOnlyInput as actionItem['callback'] },
+          { event: 'blur', callback: UtilAction.#onNumberOnlyBlur as actionItem['callback'], option: { capture: true } }
         ],
-        /**
-         * ```
-         * <input type="checkbox" data-sce-action="check" data-sce-target="[target-data-sce-name]">
-         * <input type="hidden" value="N" data-sce-name="[target-data-sce-name]" data-sce-true="Y" data-sce-false="N">
-         * 
-         * <input type="checkbox" data-sce-action="check" data-sce-target="[target-data-sce-name]" checked>
-         * <input type="hidden" value="Y" data-sce-name="[target-data-sce-name]" data-sce-true="Y" data-sce-false="N">
-         * ```
-         */
         'check': [
-          { event: 'click', callback: this.#onCheck as actionItem['callback'] }
+          { event: 'click', callback: UtilAction.#onCheck as actionItem['callback'] }
         ]
       }
-    });
+    };
   }
 
-  #onSubSelect(
+  static #onSubSelect(
     ev: Event,
     target: HTMLSelectElement,
     component: Component
@@ -106,7 +51,7 @@ export default class UtilAction {
     });
   }
 
-  async #onCheckAll(
+  static async #onCheckAll(
     ev: MouseEvent,
     target: HTMLInputElement,
     component: Component
@@ -115,7 +60,7 @@ export default class UtilAction {
                 .forEach((...arg) => { arg[0].checked = target.checked; });
   }
 
-  #onNumberOnlyKeydown(
+  static #onNumberOnlyKeydown(
     ev: KeyboardEvent,
     target: NumberOnlyElement,
     component: Component
@@ -132,7 +77,7 @@ export default class UtilAction {
     }
   }
 
-  async #onNumberOnlyInput(
+  static async #onNumberOnlyInput(
     ev: InputEvent,
     target: NumberOnlyElement,
     component: Component
@@ -162,16 +107,16 @@ export default class UtilAction {
       ) { target.selectionStart -= 1; }
     }
 
-    await this.#numberOnly(ev, target, component);
+    await UtilAction.#numberOnly(ev, target, component);
   }
 
-  async #onNumberOnlyBlur(
+  static async #onNumberOnlyBlur(
     ev: FocusEvent,
     target: NumberOnlyElement,
     component: Component
-  ): Promise<void> { await this.#numberOnly(ev, target, component); }
+  ): Promise<void> { await UtilAction.#numberOnly(ev, target, component); }
 
-  async #numberOnly(
+  static async #numberOnly(
     ev: Event,
     target: NumberOnlyElement,
     component: Component
@@ -265,7 +210,7 @@ export default class UtilAction {
     if (!Util.empty(target.selectionEnd)) { target.selectionEnd = selection; }
   }
 
-  async #onCheck(
+  static async #onCheck(
     ev: MouseEvent,
     target: HTMLInputElement,
     component: Component
