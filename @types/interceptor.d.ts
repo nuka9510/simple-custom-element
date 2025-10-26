@@ -5,7 +5,7 @@ export interface interceptor {
    * `Interceptor`를 적용할 `Component`  \
    * 지정되지 않았을 경우 모든 `Component`에 적용
    */
-  target?: Component[];
+  component?: Component[];
   /**
    * `Interceptor`를 적용할 `action`명  \
    * 지정되지 않았을 경우 모든 `action`에 적용

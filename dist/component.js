@@ -16,8 +16,8 @@ export default class Component extends HTMLElement {
     get action() { return {}; }
     /** `Component`에서 사용할 모든 `action` */
     get allAction() {
-        const plugin = Plugin.plugin.filter((...arg) => Util.empty(arg[0].target) ||
-            arg[0].target.includes(this)), action = {
+        const plugin = Plugin.plugin.filter((...arg) => Util.empty(arg[0].component) ||
+            arg[0].component.includes(this)), action = {
             ...plugin.reduce((...arg) => {
                 return {
                     ...arg[0],
@@ -147,7 +147,8 @@ export default class Component extends HTMLElement {
     async init() { }
     /** `EventListener`에 할당 할 `action`을 정의한다. */
     #initAction() {
-        const interceptor = Interceptor.interceptor;
+        const interceptor = Interceptor.interceptor.filter((...arg) => Util.empty(arg[0].component) ||
+            arg[0].component.includes(this));
         this.#action = this.allAction;
         for (const action in this.#action) {
             this.#action[action].forEach((...arg) => { arg[0].listener = Component.#actionHandle(this, interceptor, arg[0].callback.bind(this), action, arg[0].flag).bind(this); });
@@ -264,9 +265,9 @@ export default class Component extends HTMLElement {
                 }
             }
             const preHandle = interceptor.filter((...arg) => Util.empty(arg[0].action) ||
-                (arg[0].action ?? []).includes(action))
+                arg[0].action.includes(action))
                 .map((...arg) => arg[0].preHandle), postHandle = interceptor.filter((...arg) => Util.empty(arg[0].action) ||
-                (arg[0].action ?? []).includes(action))
+                arg[0].action.includes(action))
                 .map((...arg) => arg[0].postHandle);
             for (const handle of preHandle) {
                 if (!(handle?.(ev, target, component) ?? true)) {

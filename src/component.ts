@@ -28,8 +28,8 @@ export default class Component extends HTMLElement {
   /** `Component`에서 사용할 모든 `action` */
   get allAction(): action {
     const plugin: plugin[] = Plugin.plugin.filter(
-      (...arg) => Util.empty(arg[0].target) ||
-                  arg[0].target.includes(this)
+      (...arg) => Util.empty(arg[0].component) ||
+                  arg[0].component.includes(this)
     ),
     action: action = {
       ...plugin.reduce(
@@ -182,7 +182,10 @@ export default class Component extends HTMLElement {
 
   /** `EventListener`에 할당 할 `action`을 정의한다. */
   #initAction(): void {
-    const interceptor: interceptor[] = Interceptor.interceptor;
+    const interceptor: interceptor[] = Interceptor.interceptor.filter(
+                                                                (...arg) => Util.empty(arg[0].component) ||
+                                                                            arg[0].component.includes(this)
+                                                              );
 
     this.#action = this.allAction;
 
@@ -329,12 +332,12 @@ export default class Component extends HTMLElement {
 
       const preHandle = interceptor.filter(
                                       (...arg) => Util.empty(arg[0].action) ||
-                                                  (arg[0].action ?? []).includes(action)
+                                                  arg[0].action.includes(action)
                                     )
                                     .map((...arg) => arg[0].preHandle),
       postHandle = interceptor.filter(
                                 (...arg) => Util.empty(arg[0].action) ||
-                                            (arg[0].action ?? []).includes(action)
+                                            arg[0].action.includes(action)
                               )
                               .map((...arg) => arg[0].postHandle);
 
