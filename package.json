@@ -1,6 +1,6 @@
 {
   "name": "@nuka9510/simple-custom-element",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "simple custom element util for web front-end",
   "type": "module",
   "exports": {
