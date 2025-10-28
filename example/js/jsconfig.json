@@ -11,7 +11,12 @@
     "paths": {
       "@nuka9510/js-util": [ "../../node_modules/@nuka9510/js-util/dist/index.js" ],
       "@nuka9510/simple-custom-element": [ "../../dist/index.js" ],
-      "@nuka9510/simple-custom-element/plugin": [ "../../dist/plugin/index.js" ]
+      "@nuka9510/simple-custom-element/plugin": [ "../../dist/plugin/index.js" ],
+      "@nuka9510/simple-custom-element/@types/component": ["../../@types/component.d.ts"],
+      "@nuka9510/simple-custom-element/@types/interceptor": ["../../@types/interceptor.d.ts"],
+      "@nuka9510/simple-custom-element/@types/register": ["../../@types/register.d.ts"],
+      "@nuka9510/simple-custom-element/@types/plugin": ["../../@types/plugin.d.ts"],
+      "@nuka9510/simple-custom-element/@types/plugin/util-action": ["../../@types/plugin/util-action.d.ts"]
     }
   }
 }

@@ -1,4 +1,4 @@
-import { plugin } from "../@types/plugin";
+import { plugin } from "@nuka9510/simple-custom-element/@types/plugin";
 export default class Plugin {
     #private;
     /** `simple-custome-element`에 사용할 `plugin` 배열 객체 */

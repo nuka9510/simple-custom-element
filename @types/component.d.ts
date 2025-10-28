@@ -1,4 +1,4 @@
-import Component from "../src/component.js";
+import { Component } from "@nuka9510/simple-custom-element";
 
 export interface actionItem {
   /**

@@ -1,4 +1,4 @@
-import { interceptor } from "../@types/interceptor";
+import { interceptor } from "@nuka9510/simple-custom-element/@types/interceptor";
 export default class Interceptor {
     #private;
     /** `simple-custome-element`에 사용할 `interceptor` 배열 객체 */

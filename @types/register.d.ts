@@ -1,4 +1,4 @@
-import Component from "../src/component.js";
+import { Component } from "@nuka9510/simple-custom-element";
 
 export interface element {
   /** `simple-custom-element`로 사용할 `Component`의 `tagName` */

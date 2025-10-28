@@ -1,11 +1,11 @@
-import { action, actionItem, root } from "../@types/component"
-import { plugin } from "../@types/plugin"
+import { action, actionItem, root } from "@nuka9510/simple-custom-element/@types/component"
+import { plugin } from "@nuka9510/simple-custom-element/@types/plugin"
+import { interceptor } from "@nuka9510/simple-custom-element/@types/interceptor";
 import { Util } from "@nuka9510/js-util";
 import Context from "./context.js";
+import Interceptor from "./interceptor.js";
 import Plugin from "./plugin.js";
 import State from "./state.js";
-import Interceptor from "./interceptor.js";
-import { interceptor } from "../@types/interceptor";
 
 export default class Component extends HTMLElement {
   #isLoaded: boolean;

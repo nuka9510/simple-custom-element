@@ -1,4 +1,4 @@
-import { action, root } from "../@types/component";
+import { action, root } from "@nuka9510/simple-custom-element/@types/component";
 import State from "./state.js";
 export default class Component extends HTMLElement {
     #private;

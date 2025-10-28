@@ -1,7 +1,7 @@
-import { NumberOnlyElement, plugin } from "../../@types/plugin/util_action";
-import { actionItem } from "../../@types/component";
+import { NumberOnlyElement, plugin } from "@nuka9510/simple-custom-element/@types/plugin/util-action";
+import { actionItem } from "@nuka9510/simple-custom-element/@types/component";
 import { Util } from "@nuka9510/js-util";
-import Component from "../component.js";
+import { Component } from "@nuka9510/simple-custom-element";
 
 export default class UtilAction {
   static plugin(

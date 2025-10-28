@@ -1,5 +1,5 @@
+import { Component } from "@nuka9510/simple-custom-element";
 import { action } from "./component";
-import Component from "../src/component.js";
 
 export interface plugin {
   /**

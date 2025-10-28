@@ -1,8 +1,8 @@
 import { Util } from "@nuka9510/js-util";
 import Context from "./context.js";
+import Interceptor from "./interceptor.js";
 import Plugin from "./plugin.js";
 import State from "./state.js";
-import Interceptor from "./interceptor.js";
 export default class Component extends HTMLElement {
     #isLoaded;
     #template;
