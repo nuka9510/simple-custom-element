@@ -6,7 +6,7 @@ export default class State {
         this.#state = Util.copy(state);
         this.#callback = callback;
     }
-    /** `target`을 수정한다.  */
+    /** `target`을 수정한다. */
     set(...arg) {
         if ((arg.length > 0) && (arg.length <= 2)) {
             switch (arg.length) {

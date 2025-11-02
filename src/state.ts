@@ -13,7 +13,7 @@ export default class State<T extends object> {
     this.#callback = callback;
   }
 
-  /** `target`을 수정한다.  */
+  /** `target`을 수정한다. */
   set(
     ...arg: [T] | [keyof T, T[keyof T]]
   ): void {

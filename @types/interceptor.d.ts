@@ -15,15 +15,15 @@ export interface interceptor {
    * `action`동작 전에 실행 할 `callback`  \
    * `false` 반환 시 `action` 중단
    */
-  preHandle?: <T, U> (
+  preHandle?: <T extends Event, U extends HTMLElement> (
     ev: T,
-    target: U,
+    target: U | EventTarget,
     component: Component
   ) => boolean | void;
-  /** `action`동작 이후 실행 할 `callback`  \ */
-  postHandle?: <T, U> (
+  /** `action`동작 이후 실행 할 `callback` */
+  postHandle?: <T extends Event, U extends HTMLElement> (
     ev: T,
-    target: U,
+    target: U | EventTarget,
     component: Component
   ) => void;
 }
